@@ -1,30 +1,25 @@
 import React, { useEffect,useState } from "react"
 import {ScrollView,Text ,StyleSheet, TouchableOpacity} from "react-native"
-import data from '../data.json'
+import data from '../data'
 
 
-export default function Main({navigation,route}){
+export default function Main({navigation}){
 
-    const [state,setState] = useState({
-        "idx" :0,
-        "name" : "얼죽아",
-        "answer" : "얼어 죽어도 아메리카노",
-        "question_1" : "얼어 죽어도 아메리카노",
-        "question_2" : "얼굴이 죽은 아이",
-        "question_3" : "얼빠진 죽먹는 아이",
-        "question_4" : "얼굴이 죽여주는 아이돌",
-        "desc" : "추운날에도 아메리카노를 아이스로 먹는사람을 일컫는 말"
-
-    })
+    const [state,setState] = useState([])
 
     useEffect(()=>{
         navigation.setOptions({
-            title:""
+            title:"",
+            headerStyle:{
+                backgroundColor : "#000",
+                shadowColor : "#000",
+                borderBottomColor :"#000"
+            }
         })
 
         setTimeout(()=>{
 
-            let neologism_data = data.neologism;
+            let neologism_data = data;
             setState(neologism_data)
      
          },1000)
