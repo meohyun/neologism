@@ -54,6 +54,7 @@ export default function Question({navigation,route}){
                 
             }
         })
+        setModalVisible(false)
     },[])
 
     const correct = (selectedOption) =>{
@@ -124,44 +125,6 @@ export default function Question({navigation,route}){
               onRefresh={onRefresh}
             />}>
             <StatusBar barstyle="light-content" backgroundColor="#fff"/>
-            <Modal
-            animationType ="slide"
-            transparent ={true}
-            visible ={ModalVisible}
-            onRequestClose={()=>setModalVisible(false)}>
-                <View style={styles.modal}> 
-                    <View style={styles.modalbox02}>
-                        <Text style={styles.modaltext}>{allquestion[CurrentIdx]?.desc_title}</Text>
-                        <View style={{
-                            marginTop :20
-                        }}>
-                            <Text style={styles.modaltext02}>{allquestion[CurrentIdx]?.desc}</Text>
-                        </View>
-                    
-                        <Pressable
-                        style={{
-                            marginVertical :30,
-                            borderRadius :15,
-                            borderColor : "#0080ff",
-                            backgroundColor :"#0080ff",
-                            justifyContent :"center",
-                            alignItems :"center",
-                            width : 100,
-                            height : 50,
-                            
-
-                        }} 
-                        onPress ={()=>setModalVisible(false)}>
-                            
-                        <Text style={{
-                            fontSize : 20,
-                            color :"#fff"
-                        }}>확인
-                        </Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
             <View style={{
                 flexDirection :"row",
                 alignItems :"flex-end",
@@ -269,6 +232,44 @@ export default function Question({navigation,route}){
                         </Text></Pressable>
                     </View>          
 
+                </View>
+            </Modal>
+            <Modal
+            animationType ="slide"
+            transparent ={true}
+            visible ={ModalVisible}
+            onRequestClose={()=>setModalVisible(false)}>
+                <View style={styles.modal}> 
+                    <View style={styles.modalbox02}>
+                        <Text style={styles.modaltext}>{allquestion[CurrentIdx]?.desc_title}</Text>
+                        <View style={{
+                            marginTop :20
+                        }}>
+                            <Text style={styles.modaltext02}>{allquestion[CurrentIdx]?.desc}</Text>
+                        </View>
+                    
+                        <Pressable
+                        style={{
+                            marginVertical :30,
+                            borderRadius :15,
+                            borderColor : "#0080ff",
+                            backgroundColor :"#0080ff",
+                            justifyContent :"center",
+                            alignItems :"center",
+                            width : 100,
+                            height : 50,
+                            
+
+                        }} 
+                        onPress ={()=>setModalVisible(false)}>
+                            
+                        <Text style={{
+                            fontSize : 20,
+                            color :"#fff"
+                        }}>확인
+                        </Text>
+                        </Pressable>
+                    </View>
                 </View>
             </Modal>
         </ScrollView>
