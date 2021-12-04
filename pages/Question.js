@@ -1,6 +1,7 @@
 import React from 'react'
-import {ScrollView, StyleSheet,View,Text, Modal} from 'react-native'
+import {ScrollView, StyleSheet,View,Text, Modal,RefreshControl} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { useEffect,useState } from 'react'
 import data from '../data'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
@@ -28,10 +29,17 @@ export default function Question({navigation,route}){
     // 다음 페이지 
     const [NextPage,setNextPage] = useState(false)
 
+    // 설명 란
+    const [DescModal,setDescModal] = useState(false)
+
     // 마지막 페이지 
     const [ScoreModal,setScoreModal] = useState(false)
 
+    // 모달 창 닫기
+    const [ModalVisible, setModalVisible] = useState(true); 
 
+
+    
 
     useEffect(()=>{
 
@@ -56,7 +64,10 @@ export default function Question({navigation,route}){
        if(selectedOption==answer){
            setscore(score+1)
        }
+       setDescModal(true)
+       setModalVisible(true)
        setNextPage(true)
+
     }
 
     const handleNext = () => {
@@ -93,9 +104,64 @@ export default function Question({navigation,route}){
         
     }
 
+    // 새로고침 기능
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+      }
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+        }, []);
+
     return(
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container}
+        refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />}>
             <StatusBar barstyle="light-content" backgroundColor="#fff"/>
+            <Modal
+            animationType ="slide"
+            transparent ={true}
+            visible ={ModalVisible}
+            onRequestClose={()=>setModalVisible(false)}>
+                <View style={styles.modal}> 
+                    <View style={styles.modalbox02}>
+                        <Text style={styles.modaltext}>{allquestion[CurrentIdx]?.desc_title}</Text>
+                        <View style={{
+                            marginTop :20
+                        }}>
+                            <Text style={styles.modaltext02}>{allquestion[CurrentIdx]?.desc}</Text>
+                        </View>
+                    
+                        <Pressable
+                        style={{
+                            marginVertical :30,
+                            borderRadius :15,
+                            borderColor : "#0080ff",
+                            backgroundColor :"#0080ff",
+                            justifyContent :"center",
+                            alignItems :"center",
+                            width : 100,
+                            height : 50,
+                            
+
+                        }} 
+                        onPress ={()=>setModalVisible(false)}>
+                            
+                        <Text style={{
+                            fontSize : 20,
+                            color :"#fff"
+                        }}>확인
+                        </Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
             <View style={{
                 flexDirection :"row",
                 alignItems :"flex-end",
@@ -165,7 +231,7 @@ export default function Question({navigation,route}){
             visible ={ScoreModal}>
                 <View style={styles.modal}> 
                     <View style={styles.modalbox}>
-                        <Text style={styles.modaltext}>{score > (allquestion.length/2) ? '다 맞추셨군요!' : '다시 도전하세요!'}</Text>
+                        <Text style={styles.modaltext}>{score == (allquestion.length) ? '완벽해요!' : '다시 도전하세요!'}</Text>
                     
                         <View style={{
                             flexDirection : "row",
@@ -182,7 +248,7 @@ export default function Question({navigation,route}){
                                 color : "#000"
                             }}>/ {allquestion.length}</Text>
                         </View>
-                        <TouchableOpacity 
+                        <Pressable 
                         style={{
                             marginVertical :15,
                             borderRadius :15,
@@ -200,13 +266,11 @@ export default function Question({navigation,route}){
                             fontSize : 20,
                             color :"#fff"
                         }}>다시하기
-                        </Text></TouchableOpacity>
+                        </Text></Pressable>
                     </View>          
 
                 </View>
-
             </Modal>
-
         </ScrollView>
     )
 }
@@ -307,6 +371,18 @@ const styles = StyleSheet.create({
     modaltext : {
         color : "#000",
         fontSize : 30,
+        fontWeight :"700"
+    },
+    modalbox02:{
+        backgroundColor :"#fff",
+        width : "90%",
+        borderRadius :15,
+        padding :20,
+        alignItems : "center",
+    },
+    modaltext02: {
+        color : "#000",
+        fontSize : 20,
         fontWeight :"700"
     }
 
