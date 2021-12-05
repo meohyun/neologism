@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from "react"
-import {ScrollView,Text ,StyleSheet, TouchableOpacity} from "react-native"
+import {ScrollView,Text ,StyleSheet, TouchableOpacity, Platform} from "react-native"
 import data from '../data'
-
+import {AdMobBanner,AdMobinterstitial} from 'expo-ads-admob'
 
 export default function Main({navigation}){
 
@@ -31,6 +31,26 @@ export default function Main({navigation}){
             <TouchableOpacity style={styles.button01}><Text style={styles.buttonText01} onPress={()=>{navigation.navigate('Question',state)}}>시작하기</Text></TouchableOpacity>
             <TouchableOpacity style={styles.button01}><Text style={styles.buttonText01}>공부하기</Text></TouchableOpacity>
             <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Intro')}}><Text style={styles.buttonText01}>게임 방법</Text></TouchableOpacity>
+
+            {/* 광고 붙이기 */}
+            {Platform.OS == 'ios' ? (
+                <AdMobBanner
+                bannerSize ="fullBanner"
+                servePersonalizedAds ={true}
+                adUnitID ="ca-app-pub-8186113865555128/2598378688"
+                style={styles.banner}/>
+
+                
+               
+            ):
+                <AdMobBanner
+                bannerSize ="fullBanner"
+                servePersonalizedAds ={true}
+                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                style={styles.banner}
+                />
+            } 
+        
         </ScrollView>
         
     )
@@ -64,5 +84,10 @@ const styles = StyleSheet.create({
         textAlign :"center",
         fontSize : 20
     },
+    banner : {
+        height : 80,
+        width : "90%",
+        borderWidth : 1,
+    }
 
 })
