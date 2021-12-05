@@ -16,17 +16,23 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "ios": {
+        "supportsTablet": true,
+        "buildNumber": "1.0.0",
+        "bundleIdentifier": "com.myhoneytip.gun",
+        "config": {
+          "googleMobileAdsAppId": "ca-app-pub-8186113865555128~1668440393"
+       }
+      },
+      "android": {
+          "package": "com.myhoneytip.gun",
+          "versionCode": 1,
+          "config": {
+            "googleMobileAdsAppId": "ca-app-pub-8186113865555128~2626298846"
+      }
+      }
   }
 }

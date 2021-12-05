@@ -38,7 +38,8 @@ export default function Question({navigation,route}){
     // 모달 창 닫기
     const [ModalVisible, setModalVisible] = useState(true); 
 
-
+    // 랜덤으로 나타내기 
+    const [RandomIdx,setRandomIdx] = useState(0)
     
 
     useEffect(()=>{
@@ -72,11 +73,16 @@ export default function Question({navigation,route}){
     }
 
     const handleNext = () => {
-        if (CurrentIdx == allquestion.length-1){
+
+        // 문제는 10개까지만 렌더링
+        if (RandomIdx == 9){
             setScoreModal(true)
         }
         else{
-            setCurrentIdx(CurrentIdx+1)
+            const random = Math.floor(Math.random()* allquestion.length)
+        
+            setCurrentIdx(random)
+            setRandomIdx(RandomIdx+1)
             setOptionSelected(null)
             setcorrectOption(null)
             setisOptionDisabled(false)
@@ -95,7 +101,7 @@ export default function Question({navigation,route}){
     const restart = () => {
         setScoreModal(false)
 
-        setCurrentIdx(0)
+        setRandomIdx(0)
         setscore(0)
 
         setOptionSelected(null)
@@ -117,6 +123,19 @@ export default function Question({navigation,route}){
     wait(1000).then(() => setRefreshing(false));
         }, []);
 
+    const MoveMain = ()=> {
+        setScoreModal(false)
+
+        setRandomIdx(0)
+        setscore(0)
+
+        setOptionSelected(null)
+        setcorrectOption(null)
+        setisOptionDisabled(false)
+        setNextPage(false)
+        navigation.navigate('Main')
+    }    
+
     return(
         <ScrollView style={styles.container}
         refreshControl={
@@ -135,13 +154,13 @@ export default function Question({navigation,route}){
                 <Text style={{
                     color : "#fff",
                     fontSize : 25,
-                }}>{CurrentIdx+1} / </Text>
+                }}>{RandomIdx+1} / </Text>
                 <Text style={{
                     color : "#fff",
                     fontSize : 25,
-                }}>{allquestion.length}</Text>
+                }}>10</Text>
 
-                <Text style={styles.right_number}>맞춘 개수 : {score}</Text>
+                <Text style={styles.right_number}>맞춘 개수 : {score} </Text>
             </View>            
 
             <View style={styles.question}>
@@ -184,7 +203,7 @@ export default function Question({navigation,route}){
                         }
                     
                         </TouchableOpacity>
-                    ))
+                    )) 
                 }
                {renderNextPage()}
             </View>
@@ -194,7 +213,7 @@ export default function Question({navigation,route}){
             visible ={ScoreModal}>
                 <View style={styles.modal}> 
                     <View style={styles.modalbox}>
-                        <Text style={styles.modaltext}>{score == (allquestion.length) ? '완벽해요!' : '다시 도전하세요!'}</Text>
+                        <Text style={styles.modaltext}>{score == 10 ? '당신은 신조어 박사!' : '아쉽네요 다시 도전하세요!'}</Text>
                     
                         <View style={{
                             flexDirection : "row",
@@ -209,9 +228,13 @@ export default function Question({navigation,route}){
                             <Text style={{
                                 fontSize : 20,
                                 color : "#000"
-                            }}>/ {allquestion.length}</Text>
+                            }}>/ 10</Text>
                         </View>
-                        <Pressable 
+                        <View style={{
+                            
+                            flexDirection :"row"
+                        }}>
+                            <Pressable 
                         style={{
                             marginVertical :15,
                             borderRadius :15,
@@ -230,8 +253,28 @@ export default function Question({navigation,route}){
                             color :"#fff"
                         }}>다시하기
                         </Text></Pressable>
-                    </View>          
+                        <Pressable 
+                        style={{
+                            marginVertical :15,
+                            borderRadius :15,
+                            borderColor : "#0080ff",
+                            backgroundColor :"#0080ff",
+                            justifyContent :"center",
+                            alignItems :"center",
+                            marginLeft : 20,
+                            width : 100,
+                            height : 50,
 
+                        }}
+                        onPress={MoveMain}>
+                            
+                        <Text style={{
+                            fontSize : 20,
+                            color :"#fff"
+                        }}>메인 화면
+                        </Text></Pressable>
+                        </View>
+                    </View>          
                 </View>
             </Modal>
             <Modal
@@ -302,7 +345,7 @@ const styles = StyleSheet.create({
         justifyContent :"center",
         alignSelf:"center",
         color: "#fff",
-        fontSize : 35,
+        fontSize : 30,
         fontWeight :"700"
 
     },
@@ -322,8 +365,10 @@ const styles = StyleSheet.create({
         height : 50,
         padding :10,
         marginTop : 20,
-        justifyContent :"center",
-        alignSelf :"center"
+        justifyContent :"space-between",
+        alignSelf :"center",
+        borderWidth :3,
+                        
     },
     buttonText :{
         justifyContent :"center",
