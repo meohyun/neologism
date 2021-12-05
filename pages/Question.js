@@ -80,7 +80,7 @@ export default function Question({navigation,route}){
         }
         else{
             const random = Math.floor(Math.random()* allquestion.length)
-        
+           
             setCurrentIdx(random)
             setRandomIdx(RandomIdx+1)
             setOptionSelected(null)
@@ -177,7 +177,7 @@ export default function Question({navigation,route}){
                             option==correctOption ? "#00FF00" :
                             option == OptionSelected ? "#FF0000" 
                             : "#fff",
-                            width : 350,
+                            width : 400,
                             height : 50,
                             padding :10,
                             marginTop : 20,
@@ -213,7 +213,9 @@ export default function Question({navigation,route}){
             visible ={ScoreModal}>
                 <View style={styles.modal}> 
                     <View style={styles.modalbox}>
-                        <Text style={styles.modaltext}>{score == 10 ? '당신은 신조어 박사!' : '아쉽네요 다시 도전하세요!'}</Text>
+                        <Text style={styles.modaltext}>
+                            {score == 10 ? '당신은 신조어 박사!' : score > 5 ? '당신은 이시대의 인싸!' : score < 5 ? '다시 공부하세요!' : null }
+                            </Text>
                     
                         <View style={{
                             flexDirection : "row",
@@ -223,7 +225,7 @@ export default function Question({navigation,route}){
                         }}>
                             <Text style={{
                                 fontSize : 20,
-                                color : score > (allquestion.length/2) ? "#00FF00" : "#FF0000"
+                                color : score > 5 ? "#00FF00" : "#FF0000"
                             }}>{score}</Text>
                             <Text style={{
                                 fontSize : 20,
@@ -328,13 +330,13 @@ const styles = StyleSheet.create({
     right_number : {
         color :"#fff",
         fontSize :25,
-        marginLeft : 150,
+        marginLeft : 130,
     },
     question :{
         borderWidth :1,
         borderRadius : 15,
         borderColor : "#fff",
-        width : 350,
+        width : 400,
         height : 250,
         padding :10,
         justifyContent : "center",
