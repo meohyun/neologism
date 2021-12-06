@@ -6,7 +6,7 @@ import { useEffect,useState } from 'react'
 import data from '../data'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 import { StatusBar } from 'expo-status-bar'
-
+import { AdMobBanner } from 'expo-ads-admob'
 
 
 export default function Question({navigation,route}){
@@ -317,6 +317,25 @@ export default function Question({navigation,route}){
                     </View>
                 </View>
             </Modal>
+
+            {/* 광고 붙이기 */}
+            {Platform.OS == 'ios' ? (
+                <AdMobBanner
+                bannerSize ="fullBanner"
+                servePersonalizedAds ={true}
+                adUnitID ="ca-app-pub-8186113865555128/2598378688"
+                style={styles.banner}/>
+
+                
+               
+            ):
+                <AdMobBanner
+                bannerSize ="fullBanner"
+                servePersonalizedAds ={true}
+                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                style={styles.banner}
+                />
+            } 
         </ScrollView>
     )
 }
@@ -432,6 +451,15 @@ const styles = StyleSheet.create({
         color : "#000",
         fontSize : 20,
         fontWeight :"700"
+    },
+    banner : {
+        backgroundColor : "#fff",
+        height : 80,
+        width : "100%",
+        borderWidth : 1,
+        borderColor : "#fff",
+        padding : 15,
+        marginTop : 10
     }
 
 

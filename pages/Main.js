@@ -29,7 +29,7 @@ export default function Main({navigation}){
         <ScrollView style={styles.container}>
             <Text style={styles.title}>신조어 퀴즈</Text>
             <TouchableOpacity style={styles.button01}><Text style={styles.buttonText01} onPress={()=>{navigation.navigate('Question',state)}}>시작하기</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.button01}><Text style={styles.buttonText01}>공부하기</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Study')}}><Text style={styles.buttonText01}>공부하기</Text></TouchableOpacity>
             <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Intro')}}><Text style={styles.buttonText01}>게임 방법</Text></TouchableOpacity>
 
             {/* 광고 붙이기 */}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         alignSelf : "center",
         borderWidth :1,
         borderColor : "#fff",
-        marginTop : 80,
+        marginTop : 60,
         height : 70,
         width : 120,
         borderRadius : 15,
@@ -85,9 +85,13 @@ const styles = StyleSheet.create({
         fontSize : 20
     },
     banner : {
+        backgroundColor : "#fff",
         height : 80,
-        width : "90%",
+        width : "100%",
         borderWidth : 1,
+        borderColor : "#fff",
+        padding : 15,
+        marginTop : 70
     }
 
 })
