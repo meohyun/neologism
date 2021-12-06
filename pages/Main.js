@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from "react"
 import {ScrollView,Text ,StyleSheet, TouchableOpacity, Platform} from "react-native"
 import data from '../data'
-import {AdMobBanner,AdMobinterstitial} from 'expo-ads-admob'
+import {AdMobBanner} from 'expo-ads-admob'
 
 export default function Main({navigation}){
 
