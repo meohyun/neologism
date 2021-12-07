@@ -5,9 +5,10 @@ import { StatusBar } from 'expo-status-bar'
 import data from '../data'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import Card from '../components/Card'
 
 
-export default function Study({navigation}){
+export default function Study({navigation,content}){
 
     const [Datastate,setDataState] = useState([])
     
@@ -26,10 +27,9 @@ export default function Study({navigation}){
             }
         })
 
-        setTimeout(()=>{
-            let neologism_data = data;
-            setDataState(neologism_data)
-        },1000)
+        let neologism_data = data;
+        setDataState(neologism_data)
+
 
     },[])
 
@@ -47,23 +47,19 @@ export default function Study({navigation}){
         }, []);
 
     return(
-        <SafeAreaView style={styles.container}
+        <ScrollView style={styles.container}
             refreshControl={
                 <RefreshControl
                     refreshing={refreshing}
                     onRefresh={onRefresh}
             />}>
-            <FlatList
-                keyExtractor={(item)=>item.idx}
-                data={Datastate}
-                renderItem ={({item})=>(
-                    <TouchableOpacity style={styles.list_button} onPress={navigation.navigate('Studyinfo',item)}>
-                        <Text style={styles.text}>{item.desc_title}</Text>
-                    </TouchableOpacity>
-                    
-                )}
-                style={styles.list}
-                >
+                <View style={styles.list}>
+                {Datastate.map((content,i)=>{
+                    return(<Card content={content} key={i} navigation={navigation}/>)
+                })}
+            
+                </View>
+                
                     {/* 광고 붙이기 */}
 
                 {Platform.OS == 'ios' ? (
@@ -84,8 +80,7 @@ export default function Study({navigation}){
                 />
                 } 
 
-                </FlatList> 
-        </SafeAreaView>
+        </ScrollView>
 
                      
             
