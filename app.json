@@ -22,13 +22,13 @@
     "ios": {
         "supportsTablet": true,
         "buildNumber": "1.0.0",
-        "bundleIdentifier": "com.myhoneytip.gun",
+        "bundleIdentifier": "com.neologism.meohyun",
         "config": {
           "googleMobileAdsAppId": "ca-app-pub-8186113865555128~1668440393"
        }
       },
       "android": {
-          "package": "com.myhoneytip.gun",
+          "package": "com.neologism.meohyun",
           "versionCode": 1,
           "config": {
             "googleMobileAdsAppId": "ca-app-pub-8186113865555128~2626298846"

@@ -37,10 +37,15 @@ export default function Studyinfo({navigation,route}){
         <SafeAreaView style ={styles.container}>
             <View style={styles.desc_container}>
                 <Text style ={styles.title}>{list.desc_title}</Text>
-                <Text style={styles.desc}>{list.desc}</Text>
+
+                <View style={styles.desc_textbox}>
+                    <Text style={styles.desc}>{list.desc}</Text>
+                </View>
+
 
                 <View style={styles.example}>
-                    <Text style={styles.example_text }> 예시 :{list.example}</Text>
+                    <Text style={styles.example_title}>예시</Text>
+                    <Text style={styles.example_text}>{list.example}</Text>
                 </View>
                 
             </View>
@@ -83,7 +88,20 @@ const styles = StyleSheet.create({
         marginBottom : 20,
     },
     desc_container :{
+        flex : 3,
         marginLeft :10,
+    },
+    desc_textbox :{
+        justifyContent : "center",
+        alignSelf:"center",
+        alignItems :"center",
+        width : "95%",
+        height : 250,
+        marginTop : 40,
+        borderWidth : 1,
+        borderColor : "#FFF",
+        borderRadius : 10,
+
     },
     desc : {
         fontSize : 20,
@@ -91,18 +109,36 @@ const styles = StyleSheet.create({
         color: "#fff"
     },
     example : {
-        marginTop : 20,   
+        marginTop : 20,
+        justifyContent : "center",
+        alignSelf:"center",
+        width : "95%",
+        height : 200,
+        marginTop : 40,
+        borderWidth : 1,
+        borderColor : "#FFF",
+        borderRadius : 10,
     },
+    example_title :{
+        marginLeft : 20,
+        fontSize : 25,
+        fontWeight : "700",
+        color: "#fff",
+        marginBottom : 30
+
+    },
+
     example_text :{
         fontSize : 20,
         fontWeight : "700",
-        color: "#fff"
+        color: "#fff",
+        textAlign : "center"
         
     },
     banner : {
+        flex : 1,
         backgroundColor : "#fff",
         height : 80,
-        width : "100%",
         borderWidth : 1,
         borderColor : "#fff",
         marginTop : 400

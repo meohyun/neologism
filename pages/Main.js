@@ -2,6 +2,8 @@ import React, { useEffect,useState } from "react"
 import {ScrollView,Text ,StyleSheet, TouchableOpacity, Platform} from "react-native"
 import data from '../data'
 import {AdMobBanner} from 'expo-ads-admob'
+import { StatusBar } from "expo-status-bar"
+
 
 export default function Main({navigation}){
 
@@ -17,6 +19,7 @@ export default function Main({navigation}){
             }
         })
 
+
         setTimeout(()=>{
 
             let neologism_data = data;
@@ -25,8 +28,11 @@ export default function Main({navigation}){
          },1000)
     })
 
+    
+
     return(
         <ScrollView style={styles.container}>
+            <StatusBar barstyle="light-content" backgroundColor="#fff"/>
             <Text style={styles.title}>신조어 퀴즈</Text>
             <TouchableOpacity style={styles.button01}><Text style={styles.buttonText01} onPress={()=>{navigation.navigate('Question',state)}}>시작하기</Text></TouchableOpacity>
             <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Study')}}><Text style={styles.buttonText01}>공부하기</Text></TouchableOpacity>
@@ -72,6 +78,7 @@ const styles = StyleSheet.create({
         justifyContent :"center",
         alignContent : "center",
         alignSelf : "center",
+        backgroundColor : "#017CFF",
         borderWidth :1,
         borderColor : "#fff",
         marginTop : 60,

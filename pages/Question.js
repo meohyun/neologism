@@ -13,7 +13,8 @@ export default function Question({navigation,route}){
 
     const allquestion = data;
     // 현재 페이지
-    const [CurrentIdx,setCurrentIdx] = useState(0)
+    const random = Math.floor(Math.random()* allquestion.length)
+    const [CurrentIdx,setCurrentIdx] = useState(random)
     // 점수
     const [score,setscore] = useState(0)
 

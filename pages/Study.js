@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import {View,StyleSheet,Text,RefreshControl,ScrollView} from 'react-native'
+import {View,StyleSheet,Text,RefreshControl} from 'react-native'
 import { AdMobBanner } from 'expo-ads-admob'
-import { StatusBar } from 'expo-status-bar'
 import data from '../data'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import { FlatList, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import Card from '../components/Card'
+
 
 
 export default function Study({navigation,content}){
 
     const [Datastate,setDataState] = useState([])
+    const [masterData,setmasterData] = useState([])
+    const [search,setsearch] =useState('')
     
 
     useEffect(()=>{
@@ -29,6 +30,7 @@ export default function Study({navigation,content}){
 
         let neologism_data = data;
         setDataState(neologism_data)
+        setmasterData(neologism_data)
 
 
     },[])
@@ -46,18 +48,55 @@ export default function Study({navigation,content}){
     wait(1000).then(() => setRefreshing(false));
         }, []);
 
+    // 검색 기능
+
+    const searchFilter = (text) => {
+        if (text) {
+            const newData = masterData.filter((item)=>{
+                const itemData = item.desc_title
+
+            return itemData.indexOf(text) > -1;
+            });
+            setDataState(newData);
+            setsearch(text);
+        }
+        else{
+            setDataState(masterData);
+            setsearch(text);
+            
+        }
+    }
+
     return(
-        <ScrollView style={styles.container}
+        <SafeAreaView style={styles.container}
+
             refreshControl={
                 <RefreshControl
                     refreshing={refreshing}
                     onRefresh={onRefresh}
             />}>
+
+                <View style={styles.bar_container}>
+                    <TextInput
+                    style={styles.textInputBar}
+                    value ={search}
+                    placeholder ="신조어를 입력하세요."
+                    underlineColorAndroid ="transparent"
+                    onChangeText ={(text) => searchFilter(text)}
+                    />
+                </View>
+
                 <View style={styles.list}>
-                {Datastate.map((content,i)=>{
-                    return(<Card content={content} key={i} navigation={navigation}/>)
-                })}
-            
+                    <FlatList
+                    data={Datastate}
+                    keyExtractor = {(item,index)=>index.toString()}
+                    renderItem ={({item}) =>(
+                        <TouchableOpacity style ={styles.list_button}onPress={()=>{navigation.navigate('Studyinfo',item)}}>
+                            <Text style={styles.text}>{item.desc_title}</Text>
+                        </TouchableOpacity>
+
+                    )}
+                    />            
                 </View>
                 
                     {/* 광고 붙이기 */}
@@ -80,7 +119,7 @@ export default function Study({navigation,content}){
                 />
                 } 
 
-        </ScrollView>
+        </SafeAreaView>
 
                      
             
@@ -97,10 +136,27 @@ export default function Study({navigation,content}){
 
 const styles = StyleSheet.create({
     container :{
+        flex: 1,
         backgroundColor : "#000"
     },
+    bar_container :{
+        backgroundColor : "#000"
+    },
+    textInputBar :{
+        width : "95%",
+        justifyContent : "center",
+        alignSelf: "center",
+        height :50,
+        borderWidth :1,
+        paddingLeft : 20,
+        margin :5,
+        borderColor: "#009688",
+        backgroundColor :"#fff"
+    },
+    
 
     list :{
+        flex :6,
         backgroundColor :"#000",
         marginVertical : 30,
     },
@@ -117,12 +173,13 @@ const styles = StyleSheet.create({
         fontSize : 20
     },
     banner : {
+        flex :1,
         backgroundColor : "#fff",
         height : 80,
         width : "100%",
         borderWidth : 1,
         borderColor : "#fff",
-        marginTop : 70
+
     }
 
 })
