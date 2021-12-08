@@ -1,15 +1,16 @@
 import React from 'react'
-import {ScrollView, StyleSheet,View,Text, Modal,RefreshControl} from 'react-native'
+import {BackHandler,ScrollView, StyleSheet,View,Text, Modal,RefreshControl} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { useEffect,useState } from 'react'
 import data from '../data'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 import { StatusBar } from 'expo-status-bar'
-import { AdMobBanner } from 'expo-ads-admob'
+import { AdMobInterstitial,AdMobBanner } from 'expo-ads-admob'
 
 
 export default function Question({navigation,route}){
+
 
     const allquestion = data;
     // 현재 페이지
@@ -100,15 +101,18 @@ export default function Question({navigation,route}){
     }
 
     const restart = () => {
+        const random = Math.floor(Math.random()* allquestion.length)
         setScoreModal(false)
 
         setRandomIdx(0)
+        setCurrentIdx(random)
         setscore(0)
 
         setOptionSelected(null)
         setcorrectOption(null)
         setisOptionDisabled(false)
         setNextPage(false)
+
         
     }
 
@@ -207,6 +211,7 @@ export default function Question({navigation,route}){
                     )) 
                 }
                {renderNextPage()}
+            
             </View>
             <Modal
             animationType ="slide"
@@ -215,7 +220,10 @@ export default function Question({navigation,route}){
                 <View style={styles.modal}> 
                     <View style={styles.modalbox}>
                         <Text style={styles.modaltext}>
-                            {score == 10 ? '당신은 신조어 박사!' : score > 5 ? '당신은 이시대의 인싸!' : score < 5 ? '다시 공부하세요!' : null }
+                            {score == 10 ? '축하합니다! 모두 맞추셨군요! 당신은 신조어 박사!':
+                            score > 8 ? '당신은 21세기의 인싸!' : 
+                            score < 5  ? '신조어 공부를 열심히 하셔야겠어요!' : 
+                            null }
                             </Text>
                     
                         <View style={{
@@ -226,7 +234,7 @@ export default function Question({navigation,route}){
                         }}>
                             <Text style={{
                                 fontSize : 20,
-                                color : score > 5 ? "#00FF00" : "#FF0000"
+                                color : score > 3 ? "#00FF00" : "#FF0000"
                             }}>{score}</Text>
                             <Text style={{
                                 fontSize : 20,
@@ -437,6 +445,7 @@ const styles = StyleSheet.create({
         alignItems : "center"
     },
     modaltext : {
+        marginTop: 30,
         color : "#000",
         fontSize : 30,
         fontWeight :"700"
