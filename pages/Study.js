@@ -143,12 +143,12 @@ const styles = StyleSheet.create({
         backgroundColor : "#000"
     },
     textInputBar :{
-        width : "95%",
+        width : "100%",
         justifyContent : "center",
         alignSelf: "center",
         height :50,
         borderWidth :1,
-        paddingLeft : 20,
+        paddingLeft : 10,
         margin :5,
         borderColor: "#009688",
         backgroundColor :"#fff"
@@ -158,11 +158,12 @@ const styles = StyleSheet.create({
     list :{
         flex :6,
         backgroundColor :"#000",
-        marginVertical : 30,
+        marginVertical : 20,
     },
     list_button :{
         width : "100%",
-        height : 50,
+        height : 70,
+        padding : 10,
         borderBottomWidth : 1,
         borderBottomColor :"#FFF",
         marginTop : 10,
@@ -170,7 +171,8 @@ const styles = StyleSheet.create({
 
     text :{
         color : "#fff",
-        fontSize : 20
+        fontSize : 20,
+        fontWeight : "700"
     },
     banner : {
         flex :1,

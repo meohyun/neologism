@@ -1,12 +1,14 @@
 import React, { useEffect,useState } from "react"
-import {ScrollView,Text ,StyleSheet, TouchableOpacity, Platform} from "react-native"
+import {View,Image,Text ,StyleSheet, TouchableOpacity, Platform} from "react-native"
 import data from '../data'
 import {AdMobBanner} from 'expo-ads-admob'
 import { StatusBar } from "expo-status-bar"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 
 export default function Main({navigation}){
 
+    const Uri = "https://firebasestorage.googleapis.com/v0/b/neologism-4c173.appspot.com/o/logo.png?alt=media&token=65a1cb5c-ce8e-4809-b220-af584fcae853"
     const [state,setState] = useState([])
 
     useEffect(()=>{
@@ -31,12 +33,20 @@ export default function Main({navigation}){
     
 
     return(
-        <ScrollView style={styles.container}>
+        <SafeAreaView style={styles.container}>
+            <View style ={{
+                flex :11
+            }}>
             <StatusBar barstyle="light-content" backgroundColor="#fff"/>
+            <Image style={{
+                height : 80,
+            }}source={{uri:Uri}}/>
             <Text style={styles.title}>신조어 퀴즈</Text>
             <TouchableOpacity style={styles.button01}><Text style={styles.buttonText01} onPress={()=>{navigation.navigate('Question',state)}}>시작하기</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Study')}}><Text style={styles.buttonText01}>공부하기</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Study')}}><Text style={styles.buttonText01}>신조어 사전</Text></TouchableOpacity>
             <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Intro')}}><Text style={styles.buttonText01}>게임 방법</Text></TouchableOpacity>
+            </View>
+            
 
             {/* 광고 붙이기 */}
             {Platform.OS == 'ios' ? (
@@ -57,18 +67,19 @@ export default function Main({navigation}){
                 />
             } 
         
-        </ScrollView>
+        </SafeAreaView>
         
     )
 }
 
 const styles = StyleSheet.create({
     container:{
+        flex : 1,
         backgroundColor : "#000"
     },
     title:{
         marginLeft : 10,
-        marginTop : 150,
+        marginTop : 80,
         color: "#fff",
         fontSize : 45,
         textAlign : "center"
@@ -92,6 +103,7 @@ const styles = StyleSheet.create({
         fontSize : 20
     },
     banner : {
+        flex : 1,
         backgroundColor : "#fff",
         height : 80,
         width : "100%",

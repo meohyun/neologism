@@ -21,7 +21,7 @@ export default function Intro({navigation}){
             <Text style={styles.title}>게임 방법</Text>
             <Text style={styles.desc}>
                     제시된 제시어를 보고 알맞은 뜻을 고르시면 됩니다.
-                    4가지의 문항이 주어지며 정답이라고 생각되는 뜻을 터치하시면 됩니다.
+                    4가지의 문항이 주어지며 정답이라고 생각되는 문항을 터치하시면 됩니다.
                     총 10문제로 이루어져 있습니다.
                     우리가 잘 모르는 신조어를 퀴즈를 통해 재밌게 배워봐요!
             </Text>
