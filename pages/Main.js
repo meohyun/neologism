@@ -36,6 +36,17 @@ export default function Main({navigation}){
         setmodal(true)
     }
 
+    const wordgame = () => {
+        setmodal(false)
+        navigation.navigate('Question',state)
+
+    }
+
+    const sentencegame = () => {
+        setmodal(false)
+
+    }
+
     return(
         <SafeAreaView style={styles.container}>
             <View style ={{
@@ -90,8 +101,8 @@ export default function Main({navigation}){
                         <View style={{
                             flexDirection : "row"
                         }}> 
-                            <TouchableOpacity style={styles.modalbutton} onPress={()=>{navigation.navigate('Question',state)}}><Text style={styles.modaltext}>단어 맞추기</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.modalbutton}><Text style= {styles.modaltext}>문장 만들기</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.modalbutton} onPress={wordgame}><Text style={styles.modaltext}>단어 맞추기</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.modalbutton} onPress={sentencegame}><Text style= {styles.modaltext}>문장 만들기</Text></TouchableOpacity>
                         </View>
                         
                     </View>
@@ -152,7 +163,7 @@ const styles = StyleSheet.create({
         borderWidth : 5,
         borderRadius : 20,
         height : 350,
-        width : 350,
+        width : 400,
 
     },
     modalbutton : {
