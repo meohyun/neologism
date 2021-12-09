@@ -1,12 +1,12 @@
 import React from 'react'
-import {BackHandler,ScrollView, StyleSheet,View,Text, Modal,RefreshControl} from 'react-native'
+import {ScrollView, StyleSheet,View,Text, Modal,RefreshControl} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { useEffect,useState } from 'react'
 import data from '../data'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 import { StatusBar } from 'expo-status-bar'
-import { AdMobInterstitial,AdMobBanner } from 'expo-ads-admob'
+import { AdMobBanner } from 'expo-ads-admob'
 
 
 export default function Question({navigation,route}){
@@ -273,7 +273,7 @@ export default function Question({navigation,route}){
                             backgroundColor :"#0080ff",
                             justifyContent :"center",
                             alignItems :"center",
-                            marginLeft : 20,
+                            marginLeft : 30,
                             width : 100,
                             height : 50,
 
@@ -444,7 +444,9 @@ const styles = StyleSheet.create({
         width : "90%",
         borderRadius :15,
         padding :20,
-        alignItems : "center"
+        alignItems : "center",
+        borderColor : "#017CFF",
+        borderWidth : 5,
     },
     modaltext : {
         marginTop: 30,
@@ -458,6 +460,8 @@ const styles = StyleSheet.create({
         borderRadius :15,
         padding :20,
         alignItems : "center",
+        borderColor : "#017CFF",
+        borderWidth : 5,
     },
     modaltext02: {
         color : "#000",
