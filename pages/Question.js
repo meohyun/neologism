@@ -221,7 +221,8 @@ export default function Question({navigation,route}){
                     <View style={styles.modalbox}>
                         <Text style={styles.modaltext}>
                             {score == 10 ? '축하합니다! 모두 맞추셨군요! 당신은 신조어 박사!':
-                            score > 8 ? '당신은 21세기의 인싸!' : 
+                            score > 5 ? '당신은 21세기의 인싸!' : 
+                            score == 5 ? '신조어를 어느 정도 아시네요!' :
                             score < 5  ? '신조어 공부를 열심히 하셔야겠어요!' : 
                             null }
                             </Text>
@@ -230,11 +231,12 @@ export default function Question({navigation,route}){
                             flexDirection : "row",
                             justifyContent :"flex-start",
                             alignItems : "center",
-                            marginVertical : 20
+                            marginVertical : 30,
+
                         }}>
                             <Text style={{
                                 fontSize : 20,
-                                color : score > 3 ? "#00FF00" : "#FF0000"
+                                color : score > 4 ? "#00FF00" : "#FF0000"
                             }}>{score}</Text>
                             <Text style={{
                                 fontSize : 20,
@@ -242,7 +244,6 @@ export default function Question({navigation,route}){
                             }}>/ 10</Text>
                         </View>
                         <View style={{
-                            
                             flexDirection :"row"
                         }}>
                             <Pressable 
@@ -376,7 +377,8 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         color: "#fff",
         fontSize : 30,
-        fontWeight :"700"
+        fontWeight :"700",
+        padding : 15,
 
     },
     question02 :{
