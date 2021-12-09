@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from "react"
-import {View,Image,Text ,StyleSheet, TouchableOpacity, Platform} from "react-native"
+import {Modal,View,Image,Text ,StyleSheet, TouchableOpacity, Platform} from "react-native"
 import data from '../data'
 import {AdMobBanner} from 'expo-ads-admob'
 import { StatusBar } from "expo-status-bar"
@@ -10,6 +10,7 @@ export default function Main({navigation}){
 
     const Uri = "https://firebasestorage.googleapis.com/v0/b/neologism-4c173.appspot.com/o/logo.png?alt=media&token=65a1cb5c-ce8e-4809-b220-af584fcae853"
     const [state,setState] = useState([])
+    const [modal,setmodal] = useState(false)
 
     useEffect(()=>{
         navigation.setOptions({
@@ -30,7 +31,10 @@ export default function Main({navigation}){
          },1000)
     })
 
-    
+    const game_type = () => {
+
+        setmodal(true)
+    }
 
     return(
         <SafeAreaView style={styles.container}>
@@ -42,7 +46,7 @@ export default function Main({navigation}){
                 height : 80,
             }}source={{uri:Uri}}/>
             <Text style={styles.title}>신조어 퀴즈</Text>
-            <TouchableOpacity style={styles.button01}><Text style={styles.buttonText01} onPress={()=>{navigation.navigate('Question',state)}}>시작하기</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button01}><Text style={styles.buttonText01} onPress={game_type}>시작하기</Text></TouchableOpacity>
             <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Study')}}><Text style={styles.buttonText01}>신조어 사전</Text></TouchableOpacity>
             <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Intro')}}><Text style={styles.buttonText01}>게임 방법</Text></TouchableOpacity>
             </View>
@@ -66,8 +70,36 @@ export default function Main({navigation}){
                 style={styles.banner}
                 />
             } 
+            <Modal
+            animationType="slide"
+            transparent={true}
+            visible = {modal}>
+                <View style={{
+                    justifyContent : "center",
+                    alignItems :"center",
+                    backgroundColor : "#000",
+                    padding : 10,
+                    flex : 1,
+                }}>
+                    <View style={styles.modalbox}>
+                    <View style={{
+                            marginBottom : 80,
+                        }}>
+                            <Text style={styles.modaltitle}>게임 종류를 선택하세요!</Text>
+                    </View>
+                        <View style={{
+                            flexDirection : "row"
+                        }}> 
+                            <TouchableOpacity style={styles.modalbutton} onPress={()=>{navigation.navigate('Question',state)}}><Text style={styles.modaltext}>단어 맞추기</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.modalbutton}><Text style= {styles.modaltext}>문장 만들기</Text></TouchableOpacity>
+                        </View>
+                        
+                    </View>
+                </View>                
+            </Modal>
         
         </SafeAreaView>
+        
         
     )
 }
@@ -111,6 +143,38 @@ const styles = StyleSheet.create({
         borderColor : "#fff",
         padding : 15,
         marginTop : 70
+    },
+    modalbox : {
+        justifyContent : "center",
+        alignItems : "center",
+        backgroundColor : "#fff",
+        borderColor : "#017CFF",
+        borderWidth : 5,
+        borderRadius : 20,
+        height : 350,
+        width : 350,
+
+    },
+    modalbutton : {
+        backgroundColor : "#017CFF",
+        borderRadius : 15,
+        borderColor : "#fff",
+        height : 80,
+        width : 140,
+        marginLeft : 15,
+        justifyContent: "center"
+
+    },
+    modaltext : {
+        color : "#fff",
+        textAlign : "center",
+        fontWeight : "700",
+        fontSize : 20
+    },
+    modaltitle : {
+        fontSize : 25,
+        color : "#000",
+        fontWeight : "700"
     }
 
 })
