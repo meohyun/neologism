@@ -9,7 +9,6 @@ import { SafeAreaView } from "react-native-safe-area-context"
 export default function Main({navigation}){
 
     const Uri = "https://firebasestorage.googleapis.com/v0/b/neologism-4c173.appspot.com/o/logo.png?alt=media&token=65a1cb5c-ce8e-4809-b220-af584fcae853"
-    const [state,setState] = useState([])
     const [modal,setmodal] = useState(false)
 
     useEffect(()=>{
@@ -21,14 +20,6 @@ export default function Main({navigation}){
                 borderBottomColor :"#000"
             }
         })
-
-
-        setTimeout(()=>{
-
-            let neologism_data = data;
-            setState(neologism_data)
-     
-         },1000)
     })
 
     const game_type = () => {
@@ -38,13 +29,18 @@ export default function Main({navigation}){
 
     const wordgame = () => {
         setmodal(false)
-        navigation.navigate('Question',state)
+        navigation.navigate('Question')
 
     }
 
     const sentencegame = () => {
         setmodal(false)
+        navigation.navigate('SentenceGame')
 
+    }
+
+    const back = () => {
+        setmodal(false)
     }
 
     return(
@@ -88,11 +84,23 @@ export default function Main({navigation}){
                 <View style={{
                     justifyContent : "center",
                     alignItems :"center",
-                    backgroundColor : "#000",
                     padding : 10,
                     flex : 1,
                 }}>
                     <View style={styles.modalbox}>
+                    <TouchableOpacity
+                        style={{
+                            marginRight : 330,
+                            marginBottom : 25
+                        }}
+                        onPress={back}>
+                        <Image style={{
+                            height :25,
+                            width : 25,
+                            marginBottom :20,
+                        }}source={{uri:"https://firebasestorage.googleapis.com/v0/b/neologism-4c173.appspot.com/o/arrow.png?alt=media&token=c4786244-ba05-4a9f-a453-c0d7dbb47302"}}/>          
+                    </TouchableOpacity>
+                    
                     <View style={{
                             marginBottom : 80,
                         }}>

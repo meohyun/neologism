@@ -6,6 +6,7 @@ import Intro from '../pages/Intro'
 import Question from '../pages/Question'
 import Study from '../pages/Study'
 import Studyinfo from '../pages/Studyinfo'
+import SentenceGame from '../pages/SetenceGame'
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,7 @@ const StackNavigator = () =>{
             <Stack.Screen name="Question" component={Question}/>
             <Stack.Screen name="Study" component={Study}/>
             <Stack.Screen name="Studyinfo" component={Studyinfo}/>
+            <Stack.Screen name="SentenceGame" component={SentenceGame}/>
         </Stack.Navigator>
         )
 }
