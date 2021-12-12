@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         fontWeight : "700"
     },
     banner : {
-        flex :1,
+        flex :0.7,
         backgroundColor : "#fff",
         height : 80,
         width : "100%",

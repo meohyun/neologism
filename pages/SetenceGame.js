@@ -1,8 +1,9 @@
 import React, { useEffect,useState} from 'react'
-import {SafeAreaView,StyleSheet,Text,View} from 'react-native'
+import {StyleSheet,Text,View,Modal,Pressable,RefreshControl,ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import data from '../data_sentence'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
+import { AdMobBanner } from 'expo-ads-admob'
 
 
 
@@ -12,6 +13,7 @@ export default function SentenceGame({navigation}){
 
     // 현재 페이지
     const random = Math.floor(Math.random()* datas.length)
+
     const [CurrentIdx,setCurrentIdx] = useState(random)
     // 점수
     const [score,setscore] = useState(0)
@@ -27,9 +29,6 @@ export default function SentenceGame({navigation}){
 
     // 다음 페이지 
     const [NextPage,setNextPage] = useState(false)
-
-    // 설명 란
-    const [DescModal,setDescModal] = useState(false)
 
     // 마지막 페이지 
     const [ScoreModal,setScoreModal] = useState(false)
@@ -50,9 +49,10 @@ export default function SentenceGame({navigation}){
                 height :100
             }
         })
-        
 
-    })
+        setModalVisible(false)
+
+    },[])
 
     const correct = (selectedOption) =>{
         let answer = datas[CurrentIdx]['answer'];
@@ -62,7 +62,6 @@ export default function SentenceGame({navigation}){
        if(selectedOption==answer){
            setscore(score+1)
        }
-       setDescModal(true)
        setModalVisible(true)
        setNextPage(true)
 
@@ -94,8 +93,54 @@ export default function SentenceGame({navigation}){
         }
     }
 
+    const restart = () => {
+        const random = Math.floor(Math.random()* datas.length)
+        setScoreModal(false)
+
+        setRandomIdx(0)
+        setCurrentIdx(random)
+        setscore(0)
+
+        setOptionSelected(null)
+        setcorrectOption(null)
+        setisOptionDisabled(false)
+        setNextPage(false)
+
+        
+    }
+
+    // 새로고침 기능
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+      }
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+        }, []);
+
+    const MoveMain = ()=> {
+        setScoreModal(false)
+
+        setRandomIdx(0)
+        setscore(0)
+
+        setOptionSelected(null)
+        setcorrectOption(null)
+        setisOptionDisabled(false)
+        setNextPage(false)
+        navigation.navigate('Main')
+    }   
+
     return(
-       <SafeAreaView style={styles.container}>
+       <ScrollView style={styles.container}
+       refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />}>
            <View style={{
                flexDirection :"row",
                alignItems :"flex-end",
@@ -158,14 +203,170 @@ export default function SentenceGame({navigation}){
            ))}
            {renderNextPage()}
 
-       </SafeAreaView>
+           <Modal
+           animationType="slide"
+           transparent={true}
+           visible = {ModalVisible}
+           onRequestClose={()=>setModalVisible(false)}>
+               <View style={{
+                   flex : 1 ,
+                   justifyContent :"center",
+                   alignItems : "center"
+               }}>
+                   <View style={{
+                       backgroundColor :"#fff",
+                       width : "90%",
+                       borderRadius :15,
+                       padding :20,
+                       alignItems : "center",
+                       borderColor : "#017CFF",
+                       borderWidth : 5,
+
+                   }}>
+                       <Text style={{
+                    fontSize : 30,
+                    color: "#000",
+                    fontWeight : "700",
+                    textAlign : "center",
+                    marginTop : 20,
+                        }}>{datas[CurrentIdx]?.answer}
+                        </Text>
+                        <Text style={{
+                    fontSize : 20,
+                    fontWeight : "700",
+                    textAlign : "center",
+                    marginTop : 20,}}>
+                        {datas[CurrentIdx]?.desc}
+                        </Text>
+                        <Pressable
+                        style={{
+                            marginVertical :30,
+                            borderRadius :15,
+                            borderColor : "#0080ff",
+                            backgroundColor :"#0080ff",
+                            justifyContent :"center",
+                            alignSelf:"center",
+                            width : 100,
+                            height : 50,
+                            
+
+                        }} 
+                        onPress ={()=>setModalVisible(false)}>
+                            
+                        <Text style={{
+                            fontSize : 20,
+                            color :"#fff",
+                            textAlign : "center"
+                        }}>확인
+                        </Text>
+                        </Pressable>
+                    </View>
+                   
+               </View>
+           </Modal>
+           <Modal
+            animationType ="slide"
+            transparent = {true}
+            visible ={ScoreModal}>
+                <View style={styles.modal}> 
+                    <View style={styles.modalbox}>
+                        <Text style={styles.modaltext}>
+                            {score == 10 ? '축하합니다! 모두 맞추셨군요! 당신은 신조어 박사!':
+                            score > 5 ? '당신은 21세기의 인싸!' : 
+                            score == 5 ? '신조어를 어느 정도 아시네요!' :
+                            score < 5  ? '신조어 공부를 열심히 하셔야겠어요!' : 
+                            null }
+                            </Text>
+                    
+                        <View style={{
+                            flexDirection : "row",
+                            justifyContent :"flex-start",
+                            alignItems : "center",
+                            marginVertical : 30,
+
+                        }}>
+                            <Text style={{
+                                fontSize : 20,
+                                color : score > 4 ? "#00FF00" : "#FF0000"
+                            }}>{score}</Text>
+                            <Text style={{
+                                fontSize : 20,
+                                color : "#000"
+                            }}>/ 10</Text>
+                        </View>
+                        <View style={{
+                            flexDirection :"row"
+                        }}>
+                            <Pressable 
+                        style={{
+                            marginVertical :15,
+                            borderRadius :15,
+                            borderColor : "#0080ff",
+                            backgroundColor :"#0080ff",
+                            justifyContent :"center",
+                            alignItems :"center",
+                            width : 100,
+                            height : 50,
+
+                        }}
+                        onPress={restart}>
+                            
+                        <Text style={{
+                            fontSize : 20,
+                            color :"#fff"
+                        }}>다시하기
+                        </Text></Pressable>
+                        <Pressable 
+                        style={{
+                            marginVertical :15,
+                            borderRadius :15,
+                            borderColor : "#0080ff",
+                            backgroundColor :"#0080ff",
+                            justifyContent :"center",
+                            alignItems :"center",
+                            marginLeft : 30,
+                            width : 100,
+                            height : 50,
+
+                        }}
+                        onPress={MoveMain}>
+                            
+                        <Text style={{
+                            fontSize : 20,
+                            color :"#fff"
+                        }}>메인 화면
+                        </Text></Pressable>
+                        </View>
+                    </View>          
+                </View>
+            </Modal>
+
+            {/* 광고 붙이기 */}
+            {Platform.OS == 'ios' ? (
+                <AdMobBanner
+                bannerSize ="fullBanner"
+                servePersonalizedAds ={true}
+                adUnitID ="ca-app-pub-8186113865555128/2598378688"
+                style={styles.banner}/>
+
+                
+               
+            ):
+                <AdMobBanner
+                bannerSize ="fullBanner"
+                servePersonalizedAds ={true}
+                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                style={styles.banner}
+                />
+            } 
+
+       </ScrollView>
     )
 
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex : 1,
         backgroundColor : "#000"
     },
     question : {
@@ -176,8 +377,8 @@ const styles = StyleSheet.create({
         borderRadius : 15,
         width : 400,
         height : 250,
-        marginTop : 30,
-        marginBottom :20,
+        marginTop : 5,
+        marginBottom :10,
         padding :10,
     },
     question_text : {
@@ -218,10 +419,10 @@ const styles = StyleSheet.create({
         borderRadius : 15,
         borderColor : "#0080ff",
         backgroundColor : "#0080ff",
-        width : 350,
+        width : "95%",
         height : 50,
         padding :10,
-        marginTop : 20,
+        marginTop : 15,
         justifyContent :"space-between",
         alignSelf :"center",
         borderWidth :3,
@@ -234,5 +435,47 @@ const styles = StyleSheet.create({
         fontSize : 15,
         fontWeight :"700"
     },
+    modal:{
+        justifyContent :"center",
+        alignItems : "center"
+  
+    },
+    modalbox :{
+        backgroundColor :"#fff",
+        width : "90%",
+        borderRadius :15,
+        padding :20,
+        alignItems : "center",
+        borderColor : "#017CFF",
+        borderWidth : 5,
+    },
+    modaltext : {
+        marginTop: 30,
+        color : "#000",
+        fontSize : 30,
+        fontWeight :"700"
+    },
+    modalbox02:{
+        backgroundColor :"#fff",
+        width : "90%",
+        borderRadius :15,
+        padding :20,
+        alignItems : "center",
+        borderColor : "#017CFF",
+        borderWidth : 5,
+    },
+    modaltext02: {
+        color : "#000",
+        fontSize : 20,
+        fontWeight :"700"
+    },
+    banner : {
+        backgroundColor : "#fff",
+        height : 80,
+        width : "100%",
+        borderWidth : 1,
+        borderColor : "#fff",
+        marginTop : 30
+    }
 
 })

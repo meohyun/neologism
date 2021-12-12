@@ -31,9 +31,6 @@ export default function Question({navigation,route}){
     // 다음 페이지 
     const [NextPage,setNextPage] = useState(false)
 
-    // 설명 란
-    const [DescModal,setDescModal] = useState(false)
-
     // 마지막 페이지 
     const [ScoreModal,setScoreModal] = useState(false)
 
@@ -68,7 +65,6 @@ export default function Question({navigation,route}){
        if(selectedOption==answer){
            setscore(score+1)
        }
-       setDescModal(true)
        setModalVisible(true)
        setNextPage(true)
 
@@ -396,7 +392,7 @@ const styles = StyleSheet.create({
         borderRadius : 15,
         borderColor : "#0080ff",
         backgroundColor : "#0080ff",
-        width : 350,
+        width : 400,
         height : 50,
         padding :10,
         marginTop : 20,
@@ -434,7 +430,6 @@ const styles = StyleSheet.create({
     },
     modal:{
         flex : 1,
-        backgroundColor :"#000",
         alignItems :"center",
         justifyContent :"center"
     },
