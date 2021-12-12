@@ -48,7 +48,7 @@ export default function Question({navigation,route}){
 
         // console.log(allquestion[CurrentIdx]?.answer)
         navigation.setOptions({
-            title : " ",
+            title : "단어 맞추기",
             headerStyle :{
                 backgroundColor : "#000",
                 shadowColor : "#000",
@@ -157,10 +157,12 @@ export default function Question({navigation,route}){
                 marginBottom :10,
             }}>
                 <Text style={{
+                    fontWeight :"700",
                     color : "#fff",
                     fontSize : 25,
                 }}>{RandomIdx+1} / </Text>
                 <Text style={{
+                    fontWeight :"700",
                     color : "#fff",
                     fontSize : 25,
                 }}>10</Text>
@@ -360,6 +362,7 @@ const styles = StyleSheet.create({
         color :"#fff",
         fontSize :25,
         marginLeft : 130,
+        fontWeight : "700"
     },
     question :{
         borderWidth :1,
@@ -428,10 +431,6 @@ const styles = StyleSheet.create({
         backgroundColor : "#FF0000",
         justifyContent : 'center',
         alignItems : "center"
-    },
-    check_icon :{
-        color: "#fff",
-        fontSize : 20
     },
     modal:{
         flex : 1,
