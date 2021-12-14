@@ -28,7 +28,7 @@ export default function Intro({navigation}){
             </Text>
 
             <Text style={styles.desc}>
-                    문장 맞추기 :
+                    문장 만들기 :
                     문장에 비워져 있는 부분에 알맞은 신조어를 찾아보세요.
                     4가지의 문항이 주어지며 정답이라고 생각되는 문항을 터치하시면 됩니다.
                     총 10문제로 이루어져 있습니다.

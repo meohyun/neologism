@@ -154,7 +154,7 @@ export default function SentenceGame({navigation}){
                }}>{RandomIdx+1} / 10</Text>
 
                 <Text style={{
-                    marginLeft : 130,
+                    marginLeft : 120,
                     fontSize : 25,
                     fontWeight :"700",
                     color : "#fff"
@@ -436,6 +436,7 @@ const styles = StyleSheet.create({
         fontWeight :"700"
     },
     modal:{
+        flex : 1,
         justifyContent :"center",
         alignItems : "center"
   
