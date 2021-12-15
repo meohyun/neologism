@@ -136,7 +136,9 @@ export default function Study({navigation,content}){
 
 const styles = StyleSheet.create({
     container :{
-        flex: 1,
+        flex : 1,
+        flexBasis: 420,
+        flexShrink : 1,
         backgroundColor : "#000"
     },
     bar_container :{

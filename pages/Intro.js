@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text,StyleSheet,ScrollView,View} from 'react-native'
+import {Text,StyleSheet,SafeAreaView,View} from 'react-native'
 import { useEffect } from 'react'
 
 export default function Intro({navigation}){
@@ -17,7 +17,7 @@ export default function Intro({navigation}){
 
 
     return(
-        <ScrollView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Text style={styles.title}>게임 방법</Text>
             <Text style={styles.desc}>
                     단어 맞추기 :
@@ -33,12 +33,15 @@ export default function Intro({navigation}){
                     4가지의 문항이 주어지며 정답이라고 생각되는 문항을 터치하시면 됩니다.
                     총 10문제로 이루어져 있습니다.
             </Text>
-        </ScrollView>
+        </SafeAreaView>
     )
 }
 
 const styles= StyleSheet.create({
     container : {
+        flex : 1,
+        flexBasis: 420,
+        flexShrink : 1,
         backgroundColor : "#000"
     },
     title : {

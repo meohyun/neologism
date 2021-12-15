@@ -1,5 +1,5 @@
 import React, { useEffect,useState} from 'react'
-import {StyleSheet,Text,View,Modal,Pressable,RefreshControl,ScrollView } from 'react-native'
+import {SafeAreaView,StyleSheet,Text,View,Modal,Pressable,RefreshControl,ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import data from '../data_sentence'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
@@ -135,7 +135,7 @@ export default function SentenceGame({navigation}){
     }   
 
     return(
-       <ScrollView style={styles.container}
+       <SafeAreaView style={styles.container}
        refreshControl={
         <RefreshControl
           refreshing={refreshing}
@@ -360,13 +360,16 @@ export default function SentenceGame({navigation}){
                 />
             } 
 
-       </ScrollView>
+       </SafeAreaView>
     )
 
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex : 1,
+        flexBasis: 420,
+        flexShrink : 1,
         backgroundColor : "#000"
     },
     question : {
