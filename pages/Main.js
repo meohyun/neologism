@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from "react"
-import {Modal,View,Image,Text ,StyleSheet, TouchableOpacity, Platform} from "react-native"
+import {Modal,View,Image,Text ,StyleSheet, TouchableOpacity, Platform,Alert} from "react-native"
 import data from '../data'
 import {AdMobBanner} from 'expo-ads-admob'
 import { StatusBar } from "expo-status-bar"
@@ -21,6 +21,7 @@ export default function Main({navigation}){
             }
         })
     })
+    
 
     const game_type = () => {
 

@@ -1,5 +1,5 @@
 import React, { useEffect,useState} from 'react'
-import {SafeAreaView,StyleSheet,Text,View,Modal,Pressable,RefreshControl,ScrollView } from 'react-native'
+import {SafeAreaView,StyleSheet,Text,View,Modal,Pressable,RefreshControl,Alert } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import data from '../data_sentence'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
@@ -51,6 +51,19 @@ export default function SentenceGame({navigation}){
         })
 
         setModalVisible(false)
+        // 뒤로가기 누를시 종료 OR 계속 
+        navigation.addListener('beforeRemove',event=>{
+            event.preventDefault();
+
+            Alert.alert(
+                '나가기',
+                '퀴즈를 종료하시겠습니까?',
+                [
+                    {text:'네', style:'destructive', onPress : ()=>navigation.dispatch(event.data.action)},
+                    {text:'아니오', style : 'cancel',onPress : ()=>{}}
+                ]
+            )
+        })
 
     },[])
 
@@ -131,6 +144,8 @@ export default function SentenceGame({navigation}){
         setcorrectOption(null)
         setisOptionDisabled(false)
         setNextPage(false)
+
+        
         navigation.navigate('Main')
     }   
 
