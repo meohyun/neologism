@@ -1,5 +1,5 @@
 import React from 'react'
-import {SafeAreaView, StyleSheet,View,Text, Modal,RefreshControl} from 'react-native'
+import {SafeAreaView, StyleSheet,View,Text, Modal,RefreshControl, Alert} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { useEffect,useState } from 'react'
@@ -7,12 +7,14 @@ import data from '../data'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 import { StatusBar } from 'expo-status-bar'
 import { AdMobBanner } from 'expo-ads-admob'
+import { elementsThatOverlapOffsets } from 'react-native/Libraries/Lists/VirtualizeUtils'
 
 
-export default function Question({navigation,route}){
+export default function Question({navigation}){
 
 
     const allquestion = data;
+
     // 현재 페이지
     const random = Math.floor(Math.random()* allquestion.length)
     const [CurrentIdx,setCurrentIdx] = useState(random)
@@ -39,7 +41,11 @@ export default function Question({navigation,route}){
 
     // 랜덤으로 나타내기 
     const [RandomIdx,setRandomIdx] = useState(0)
+
+    // 메인화면으로 돌아갈때 알람 안뜨게
+    const [alert,setalert] = useState(true)
     
+
 
     useEffect(()=>{
 
@@ -55,7 +61,22 @@ export default function Question({navigation,route}){
             }
         })
         setModalVisible(false)
-    },[])
+
+        // 뒤로가기 누를시 종료 OR 계속 
+        navigation.addListener('beforeRemove',event=>{
+            event.preventDefault();
+
+            Alert.alert(
+                '나가기',
+                '퀴즈를 종료하시겠습니까?',
+                [
+                    {text:'네', style:'destructive', onPress : ()=>navigation.dispatch(event.data.action)},
+                    {text:'아니오', style : 'cancel',onPress : ()=>{}}
+                ]
+            )
+        })
+
+        },[navigation])
 
     const correct = (selectedOption) =>{
         let answer = allquestion[CurrentIdx]['answer'];
@@ -124,6 +145,7 @@ export default function Question({navigation,route}){
     wait(1000).then(() => setRefreshing(false));
         }, []);
 
+
     const MoveMain = ()=> {
         setScoreModal(false)
 
@@ -134,6 +156,7 @@ export default function Question({navigation,route}){
         setcorrectOption(null)
         setisOptionDisabled(false)
         setNextPage(false)
+
         navigation.navigate('Main')
     }    
 

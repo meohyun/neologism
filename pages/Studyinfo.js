@@ -39,7 +39,7 @@ export default function Studyinfo({navigation,route}){
                 <Text style ={styles.title}>{list.desc_title}</Text>
 
                 <View style={styles.desc_textbox}>
-                    <Text style={styles.example_title}>설명</Text>
+                    <Text style={styles.example_title}>뜻</Text>
                     <Text style={styles.desc}>{list.desc}</Text>
                 </View>
 
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         justifyContent : "center",
         alignSelf:"center",
         width : "95%",
-        height : 250,
+        height : 300,
         marginTop : 30,
         borderWidth : 1,
         borderColor : "#FFF",
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
 
     },
     desc : {
-        padding : 10,
+        padding : 15,
         fontSize : 20,
         fontWeight : "700",
         color: "#fff",
@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
         justifyContent : "center",
         alignSelf:"center",
         width : "95%",
-        height : 250,
-        marginTop : 40,
+        height : 200,
+        marginTop : 30,
         borderWidth : 1,
         borderColor : "#FFF",
         borderRadius : 10,

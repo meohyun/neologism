@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {View,StyleSheet,Text,RefreshControl} from 'react-native'
+import {View,StyleSheet,Text,RefreshControl,Image} from 'react-native'
 import { AdMobBanner } from 'expo-ads-admob'
 import data from '../data'
 import { FlatList, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
@@ -67,6 +67,11 @@ export default function Study({navigation,content}){
         }
     }
 
+    const deleteButton = () =>{
+        setsearch("")
+        setDataState(masterData)
+    }
+
     return(
         <SafeAreaView style={styles.container}
 
@@ -84,6 +89,24 @@ export default function Study({navigation,content}){
                     underlineColorAndroid ="transparent"
                     onChangeText ={(text) => searchFilter(text)}
                     />
+                    <TouchableOpacity style={{
+                        width : 45,
+                        height : 50,
+                        backgroundColor : "#fff",
+                        justifyContent : 'center',
+                        alignSelf: "center",
+                        borderColor: "#fff",
+                        borderWidth : 1,
+                    }}
+                    onPress={deleteButton}>
+                        <Image 
+                        style={{
+                            height :25,
+                            width : 25,
+                        }}
+                        source={{uri:"https://firebasestorage.googleapis.com/v0/b/neologism-4c173.appspot.com/o/X.png?alt=media&token=5dbeb628-ae0e-4e3d-9e41-8103c21788de"}}/>
+
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.list}>
@@ -142,17 +165,18 @@ const styles = StyleSheet.create({
         backgroundColor : "#000"
     },
     bar_container :{
-        backgroundColor : "#000"
+        backgroundColor : "#000",
+        flexDirection : "row"
     },
     textInputBar :{
-        width : "100%",
+        width : 350,
         justifyContent : "center",
         alignSelf: "center",
         height :50,
         borderWidth :1,
+        marginLeft : 10,
         paddingLeft : 10,
-        margin :5,
-        borderColor: "#009688",
+        borderColor: "#fff",
         backgroundColor :"#fff"
     },
     
