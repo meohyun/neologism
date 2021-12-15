@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet,View,Text, Modal,RefreshControl} from 'react-native'
+import {SafeAreaView, StyleSheet,View,Text, Modal,RefreshControl} from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { useEffect,useState } from 'react'
@@ -138,7 +138,7 @@ export default function Question({navigation,route}){
     }    
 
     return(
-        <ScrollView style={styles.container}
+        <SafeAreaView style={styles.container}
         refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -344,7 +344,7 @@ export default function Question({navigation,route}){
                 style={styles.banner}
                 />
             } 
-        </ScrollView>
+        </SafeAreaView>
     )
 }
 
@@ -352,6 +352,9 @@ export default function Question({navigation,route}){
 
 const styles = StyleSheet.create({
     container :{
+        flex : 1,
+        flexBasis: 420,
+        flexShrink : 1,
         backgroundColor:"#000"
     },
     right_number : {

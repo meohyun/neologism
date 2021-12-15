@@ -78,6 +78,8 @@ export default function Studyinfo({navigation,route}){
 const styles = StyleSheet.create({
     container : {
         flex : 1,
+        flexBasis: 420,
+        flexShrink : 1,
         backgroundColor : "#000"
     },
     title : {

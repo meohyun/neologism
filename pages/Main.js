@@ -46,7 +46,7 @@ export default function Main({navigation}){
     return(
         <SafeAreaView style={styles.container}>
             <View style ={{
-                flex :11
+                flex : 11,
             }}>
             <StatusBar barstyle="light-content" backgroundColor="#fff"/>
             <Image style={{
@@ -126,6 +126,8 @@ export default function Main({navigation}){
 const styles = StyleSheet.create({
     container:{
         flex : 1,
+        flexBasis: 420,
+        flexShrink : 1,
         backgroundColor : "#000"
     },
     title:{
@@ -160,7 +162,6 @@ const styles = StyleSheet.create({
         width : "100%",
         borderWidth : 1,
         borderColor : "#fff",
-        padding : 15,
         marginTop : 70
     },
     modalbox : {
