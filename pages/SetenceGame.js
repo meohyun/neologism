@@ -65,7 +65,7 @@ export default function SentenceGame({navigation}){
             )
         })
 
-    },[])
+    },[navigation])
 
     const correct = (selectedOption) =>{
         let answer = datas[CurrentIdx]['answer'];
@@ -289,7 +289,7 @@ export default function SentenceGame({navigation}){
                             {score == 10 ? '축하합니다! 모두 맞추셨군요! 당신은 신조어 박사!':
                             score > 5 ? '당신은 21세기의 인싸!' : 
                             score == 5 ? '신조어를 어느 정도 아시네요!' :
-                            score < 5  ? '신조어 공부를 열심히 하셔야겠어요!' : 
+                            score < 5  ? '어르신! 신조어 공부를 열심히 하셔야겠어요!' : 
                             null }
                             </Text>
                     
@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
 
     },
     option_text : {
-        fontSize : 15,
+        fontSize : 18,
         color : "#fff",
         fontWeight: "700",
     },
@@ -450,7 +450,7 @@ const styles = StyleSheet.create({
         justifyContent :"center",
         alignSelf:"center",
         color: "#fff",
-        fontSize : 15,
+        fontSize : 19,
         fontWeight :"700"
     },
     modal:{
