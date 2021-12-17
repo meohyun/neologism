@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View,Text ,StyleSheet} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import data from '../data'
+import { View,Text ,StyleSheet,ScrollView} from 'react-native'
 import { AdMobBanner } from 'expo-ads-admob'
 
 export default function Studyinfo({navigation,route}){
@@ -34,7 +32,7 @@ export default function Studyinfo({navigation,route}){
     },[])
     
     return(
-        <SafeAreaView style ={styles.container}>
+        <ScrollView style ={styles.container}>
             <View style={styles.desc_container}>
                 <Text style ={styles.title}>{list.desc_title}</Text>
 
@@ -69,7 +67,7 @@ export default function Studyinfo({navigation,route}){
                 />
                 } 
 
-        </SafeAreaView>
+        </ScrollView>
     
        
     )
@@ -141,13 +139,14 @@ const styles = StyleSheet.create({
         textAlign : "center"
         
     },
+    
     banner : {
         flex : 1,
         backgroundColor : "#fff",
         height : 80,
         borderWidth : 1,
         borderColor : "#fff",
-        marginTop : 400
+        marginTop : 60,
     }
 
 })
