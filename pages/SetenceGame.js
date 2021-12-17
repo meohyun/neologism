@@ -1,5 +1,5 @@
 import React, { useEffect,useState} from 'react'
-import {StyleSheet,Text,View,Modal,Pressable,Alert,ScrollView } from 'react-native'
+import {StyleSheet,Text,View,Modal,Pressable,Alert,ScrollView,Image,Share,Linking } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import data from '../data_sentence'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
@@ -157,6 +157,18 @@ export default function SentenceGame({navigation}){
         setHintDisabled(true)
     }
 
+    // 공유하기
+    const share = () =>{
+        Share.share({
+            message: `문장 만들기에서 10개 중 ${score}개를 맞췄어요! 당신도 신조어 퀴즈를 통해 신조어 능력을 테스트 해보세요!\n\n 구글 플레이 스토어 링크 \n https://play.google.com/store/apps/details?id=com.neologism.meohyun`
+        })
+    }
+
+    // 링크달기 
+    const link = () => {
+        Linking.openURL("https://play.google.com/store/apps/details?id=com.neologism.meohyun")
+    }
+
     return(
        <ScrollView style={styles.container}>
            <View style={{
@@ -299,6 +311,17 @@ export default function SentenceGame({navigation}){
             visible ={ScoreModal}>
                 <View style={styles.modal}> 
                     <View style={styles.modalbox}>
+                        <Pressable
+                            style={{
+                                marginRight : 300,
+                            }}
+                            onPress={()=>{setScoreModal(false)}}>
+                            <Image style={{
+                                height :25,
+                                width : 25,
+                                marginBottom :20,
+                            }}source={{uri:"https://firebasestorage.googleapis.com/v0/b/neologism-4c173.appspot.com/o/arrow.png?alt=media&token=c4786244-ba05-4a9f-a453-c0d7dbb47302"}}/>
+                        </Pressable>
                         <Text style={styles.modaltext}>
                             {score == 10 ? '축하합니다! 모두 맞추셨군요! 당신은 신조어 박사!':
                             score > 5 ? '당신은 21세기의 인싸!' : 
@@ -327,17 +350,7 @@ export default function SentenceGame({navigation}){
                             flexDirection :"row"
                         }}>
                             <Pressable 
-                        style={{
-                            marginVertical :15,
-                            borderRadius :15,
-                            borderColor : "#0080ff",
-                            backgroundColor :"#0080ff",
-                            justifyContent :"center",
-                            alignItems :"center",
-                            width : 100,
-                            height : 50,
-
-                        }}
+                        style={styles.sharebox}
                         onPress={restart}>
                             
                         <Text style={{
@@ -346,25 +359,32 @@ export default function SentenceGame({navigation}){
                         }}>다시하기
                         </Text></Pressable>
                         <Pressable 
-                        style={{
-                            marginVertical :15,
-                            borderRadius :15,
-                            borderColor : "#0080ff",
-                            backgroundColor :"#0080ff",
-                            justifyContent :"center",
-                            alignItems :"center",
-                            marginLeft : 30,
-                            width : 100,
-                            height : 50,
-
-                        }}
+                        style={styles.sharebox02}
                         onPress={MoveMain}>
-                            
                         <Text style={{
                             fontSize : 20,
                             color :"#fff"
                         }}>메인 화면
-                        </Text></Pressable>
+                        </Text>
+                        </Pressable>
+                        </View>
+                        <View style={{flexDirection :'row'}}>
+                            <Pressable style={styles.sharebox03}
+                            onPress={share}>
+                                <Text style={{
+                                    fontSize :20 , color : 'white'
+                                }}> 결과 공유하기
+                                </Text>
+                        </Pressable>
+
+                            {/* <Pressable style={styles.sharebox02}
+                            onPress={link}>
+                                <Text style={{
+                                    fontSize :20 , color : 'white'
+                                }}>링크
+                                </Text>
+                            </Pressable> */}
+
                         </View>
                     </View>          
                 </View>
@@ -588,6 +608,40 @@ const styles = StyleSheet.create({
         color : "green",
         fontSize : 25,
         fontWeight :"700"
+    },
+
+    sharebox :{
+        marginVertical :15,
+        borderRadius :15,
+        borderColor : "#999999",
+        backgroundColor :"#999999",
+        justifyContent :"center",
+        alignItems :"center",
+        width : 150,
+        height : 50,
+
+    },
+    sharebox02 :{
+        marginVertical :15,
+        borderRadius :15,
+        borderColor : "#999999",
+        backgroundColor :"#999999",
+        justifyContent :"center",
+        alignItems :"center",
+        width : 150,
+        height : 50,
+        marginLeft : 20,
+    },
+
+    sharebox03 :{
+        marginVertical :15,
+        borderRadius :15,
+        borderColor : "#009900",
+        backgroundColor :"#009900",
+        justifyContent :"center",
+        alignItems :"center",
+        width : 200,
+        height : 50,
     },
 
     okbutton :{

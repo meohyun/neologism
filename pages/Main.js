@@ -21,7 +21,7 @@ export default function Main({navigation}){
                 borderBottomColor :"#000"
             }
         })
-    },[navigation])
+    },[])
     
 
     const game_type = () => {
@@ -78,7 +78,9 @@ export default function Main({navigation}){
                 adUnitID ="ca-app-pub-8186113865555128/4354802154"
                 style={styles.banner}
                 />
-            } 
+            }
+
+            {/* 게임 선택 모달 */}
             <Modal
             animationType="slide"
             transparent={true}
