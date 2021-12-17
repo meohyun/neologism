@@ -20,7 +20,7 @@ export default function Main({navigation}){
                 borderBottomColor :"#000"
             }
         })
-    })
+    },[navigation])
     
 
     const game_type = () => {
@@ -74,7 +74,7 @@ export default function Main({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="ca-app-pub-8186113865555128/4354802154"
                 style={styles.banner}
                 />
             } 

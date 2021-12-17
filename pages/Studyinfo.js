@@ -64,7 +64,7 @@ export default function Studyinfo({navigation,route}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="ca-app-pub-8186113865555128/4354802154"
                 style={styles.banner}
                 />
                 } 

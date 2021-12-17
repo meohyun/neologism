@@ -39,6 +39,15 @@ export default function SentenceGame({navigation}){
     // 랜덤으로 나타내기 
     const [RandomIdx,setRandomIdx] = useState(0)
 
+    // 힌트 모달 창 
+    const [HintModal,setHintModal] = useState(false)
+
+    // 힌트 갯수 
+    const [HintNum,setHintNum] = useState(3)
+
+    // 같은 화면의 힌트 못누름
+    const [HintDisabled,setHintDisabled] = useState(true)
+
     useEffect(()=>{
         navigation.setOptions({
             title : "문장 만들기",
@@ -50,6 +59,8 @@ export default function SentenceGame({navigation}){
             }
         })
 
+        setHintNum(3)
+        setHintDisabled(false)
         setModalVisible(false)
         // 뒤로가기 누를시 종료 OR 계속 
         navigation.addListener('beforeRemove',event=>{
@@ -91,6 +102,7 @@ export default function SentenceGame({navigation}){
            
             setCurrentIdx(random)
             setRandomIdx(RandomIdx+1)
+            setHintDisabled(false)
             setOptionSelected(null)
             setcorrectOption(null)
             setisOptionDisabled(false)
@@ -113,6 +125,7 @@ export default function SentenceGame({navigation}){
         setRandomIdx(0)
         setCurrentIdx(random)
         setscore(0)
+        setHintNum(3)
 
         setOptionSelected(null)
         setcorrectOption(null)
@@ -147,7 +160,13 @@ export default function SentenceGame({navigation}){
 
         
         navigation.navigate('Main')
-    }   
+    }
+    
+    const CountHint = () =>{
+        setHintModal(true)
+        setHintNum(HintNum-1)
+        setHintDisabled(true)
+    }
 
     return(
        <SafeAreaView style={styles.container}
@@ -176,6 +195,17 @@ export default function SentenceGame({navigation}){
                 }}>맞춘 개수 : {score}</Text>
            </View>
            <View style={styles.question}>
+                {HintNum > 0 ? 
+                <TouchableOpacity
+                style={styles.hint}
+                onPress={CountHint}
+                disabled={HintDisabled}>
+                <Text style={styles.hintBox}>
+                    Hint    {HintNum > 0 ? HintNum : 0}/3
+                </Text>
+                </TouchableOpacity>  
+                : <View style={styles.hint_null}></View>}
+
                <Text style ={styles.question_text}>{datas[CurrentIdx]?.question}</Text>
            </View>
 
@@ -356,6 +386,34 @@ export default function SentenceGame({navigation}){
                 </View>
             </Modal>
 
+            {/* 힌트모달 */}
+            <Modal
+                animationType ="slide"
+                transparent = {true}
+                visible ={HintModal}
+                onRequestClose={()=>setHintModal(false)}>
+                    <View style={styles.modal}>
+                        <View style={styles.modalbox}>
+                            <Text style={styles.hintmodaltext}>Hint</Text>
+                            <Text style={styles.hintmodaltext02}>
+                                {data[CurrentIdx]?.hint}
+                                </Text>
+                            <Pressable 
+                            onPress ={()=>setHintModal(false)}
+                            style={styles.okbutton}>
+                                <Text 
+                                style={{
+                                    fontSize : 20,
+                                    color :"#fff"}}>
+                                확인
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                    </View>
+
+            </Modal>
+
             {/* 광고 붙이기 */}
             {Platform.OS == 'ios' ? (
                 <AdMobBanner
@@ -370,7 +428,7 @@ export default function SentenceGame({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="ca-app-pub-8186113865555128/4354802154"
                 style={styles.banner}
                 />
             } 
@@ -400,11 +458,14 @@ const styles = StyleSheet.create({
         padding :10,
     },
     question_text : {
-        justifyContent : "center",
-        alignSelf : "center",
+        justifyContent :"center",
+        alignSelf:"center",
+        color: "#fff",
         fontSize : 25,
-        fontWeight : "700",
-        color : "#fff",
+        marginTop : 20,
+        marginBottom :50,
+        fontWeight :"700",
+        padding : 15,
 
     },
     option_text : {
@@ -495,6 +556,65 @@ const styles = StyleSheet.create({
         borderWidth : 1,
         borderColor : "#fff",
         marginTop : 30
+    },
+    hint : {
+        backgroundColor : "#009900",
+        borderRadius :10,
+        borderWidth :1,
+        borderColor : "#009900",
+        width : 120,
+        height : 60,
+        justifyContent :'center',
+        marginTop : 40,
+        alignContent:'center',
+        alignSelf : "flex-start",
+    },
+    hint_null : {
+        backgroundColor : "black",
+        borderRadius :10,
+        borderWidth :1,
+        width : 60,
+        height : 30,
+        justifyContent :'center',
+        alignContent:'center',
+        alignSelf : "flex-end",
+        marginTop: 30,
+        marginBottom : 10,
+    },
+    hintBox : {
+        color: 'white',
+        textAlign :'center',
+        fontWeight :'bold',
+        fontSize : 20,
+    },
+    hintNum : {
+        color :"#fff",
+        fontSize :15,
+        textAlign : 'right',
+        fontWeight : "700"
+    },
+    hintmodaltext : {
+        marginTop: 30,
+        color : "#000",
+        fontSize : 30,
+        fontWeight :"700"
+    },
+    hintmodaltext02 : {
+        marginTop: 30,
+        color : "green",
+        fontSize : 25,
+        fontWeight :"700"
+    },
+
+    okbutton :{
+        marginVertical :30,
+        borderRadius :15,
+        borderColor : "#0080ff",
+        backgroundColor :"#0080ff",
+        justifyContent :"center",
+        alignItems :"center",
+        width : 100,
+        height : 50,
     }
 
 })

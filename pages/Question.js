@@ -42,6 +42,15 @@ export default function Question({navigation}){
     // 랜덤으로 나타내기 
     const [RandomIdx,setRandomIdx] = useState(0)
 
+    // 힌트 모달 창 
+    const [HintModal,setHintModal] = useState(false)
+
+    // 힌트 갯수 
+    const [HintNum,setHintNum] = useState(3)
+
+    // 같은 화면의 힌트 못누름
+    const [HintDisabled,setHintDisabled] = useState(true)
+
 
     useEffect(()=>{
 
@@ -56,6 +65,9 @@ export default function Question({navigation}){
                 
             }
         })
+
+        setHintNum(3)
+        setHintDisabled(false)
         setModalVisible(false)
 
         // 뒤로가기 누를시 종료 OR 계속 
@@ -102,6 +114,7 @@ export default function Question({navigation}){
             setcorrectOption(null)
             setisOptionDisabled(false)
             setNextPage(false)
+            setHintDisabled(false)
         }
     }
 
@@ -120,6 +133,9 @@ export default function Question({navigation}){
         setRandomIdx(0)
         setCurrentIdx(random)
         setscore(0)
+
+        setHintNum(3)
+
 
         setOptionSelected(null)
         setcorrectOption(null)
@@ -156,6 +172,12 @@ export default function Question({navigation}){
         navigation.navigate('Main')
     }    
 
+    const CountHint = () =>{
+        setHintModal(true)
+        setHintDisabled(true)
+        setHintNum(HintNum-1)
+    }
+
     return(
         <SafeAreaView style={styles.container}
         refreshControl={
@@ -181,12 +203,24 @@ export default function Question({navigation}){
                     color : "#fff",
                     fontSize : 25,
                 }}>10</Text>
-
                 <Text style={styles.right_number}>맞춘 개수 : {score} </Text>
             </View>            
 
             <View style={styles.question}>
-                <Text style={styles.questionText}>{allquestion[CurrentIdx]?.name}</Text>
+
+                {HintNum > 0 ? 
+                <TouchableOpacity
+                style={styles.hint}
+                onPress={CountHint}
+                disabled ={HintDisabled}>
+                <Text style={styles.hintBox}>
+                    Hint    {HintNum > 0 ? HintNum : 0}/3
+                </Text>
+                </TouchableOpacity>  
+                : <View style={styles.hint_null}></View>}
+                
+                <Text style={styles.questionText}>{allquestion[CurrentIdx]?.name}</Text> 
+
             </View>
             <View style={styles.question02}>
                 {
@@ -321,18 +355,7 @@ export default function Question({navigation}){
                         </View>
                     
                         <Pressable
-                        style={{
-                            marginVertical :30,
-                            borderRadius :15,
-                            borderColor : "#0080ff",
-                            backgroundColor :"#0080ff",
-                            justifyContent :"center",
-                            alignItems :"center",
-                            width : 100,
-                            height : 50,
-                            
-
-                        }} 
+                        style={styles.okbutton} 
                         onPress ={()=>setModalVisible(false)}>
                             
                         <Text style={{
@@ -343,6 +366,34 @@ export default function Question({navigation}){
                         </Pressable>
                     </View>
                 </View>
+            </Modal>
+
+            {/* 힌트모달 */}
+            <Modal
+                animationType ="slide"
+                transparent = {true}
+                visible ={HintModal}
+                onRequestClose={()=>setHintModal(false)}>
+                    <View style={styles.modal}>
+                        <View style={styles.modalbox}>
+                            <Text style={styles.hintmodaltext}>Hint</Text>
+                            <Text style={styles.hintmodaltext02}>
+                                {allquestion[CurrentIdx]?.hint}
+                                </Text>
+                            <Pressable 
+                            onPress ={()=>setHintModal(false)}
+                            style={styles.okbutton}>
+                                <Text 
+                                style={{
+                                    fontSize : 20,
+                                    color :"#fff"}}>
+                                확인
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                    </View>
+
             </Modal>
 
             {/* 광고 붙이기 */}
@@ -359,7 +410,7 @@ export default function Question({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="ca-app-pub-8186113865555128/4354802154"
                 style={styles.banner}
                 />
             } 
@@ -398,6 +449,8 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         color: "#fff",
         fontSize : 30,
+        marginTop : 20,
+        marginBottom :50,
         fontWeight :"700",
         padding : 15,
 
@@ -492,9 +545,65 @@ const styles = StyleSheet.create({
         borderColor : "#fff",
         padding : 15,
         marginTop : 10
-    }
+    },
+    hint : {
+        backgroundColor : "#009900",
+        borderRadius :10,
+        borderWidth :1,
+        borderColor : "#009900",
+        width : 120,
+        height : 60,
+        justifyContent :'center',
+        alignContent:'center',
+        alignSelf : "flex-start",
+        marginTop: 10,
+    },
+    hint_null : {
+        backgroundColor : "black",
+        borderRadius :10,
+        borderWidth :1,
+        width : 60,
+        height : 30,
+        justifyContent :'center',
+        alignContent:'center',
+        alignSelf : "flex-end",
+        marginTop: 30,
+        marginBottom : 10,
+    },
+    hintBox : {
+        color: 'white',
+        textAlign :'center',
+        fontWeight :'bold',
+        fontSize : 20,
+    },
+    hintNum : {
+        color :"#fff",
+        fontSize :15,
+        textAlign : 'right',
+        fontWeight : "700"
+    },
+    hintmodaltext : {
+        marginTop: 30,
+        color : "#000",
+        fontSize : 30,
+        fontWeight :"700"
+    },
+    hintmodaltext02 : {
+        marginTop: 30,
+        color : "green",
+        fontSize : 25,
+        fontWeight :"700"
+    },
 
-
-
-
+    okbutton :{
+        marginVertical :30,
+        borderRadius :15,
+        borderColor : "#0080ff",
+        backgroundColor :"#0080ff",
+        justifyContent :"center",
+        alignItems :"center",
+        width : 100,
+        height : 50,
+         
+}
 })
