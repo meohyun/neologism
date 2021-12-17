@@ -4,6 +4,7 @@ import data from '../data'
 import {AdMobBanner} from 'expo-ads-admob'
 import { StatusBar } from "expo-status-bar"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { ScrollView } from "react-native-gesture-handler"
 
 
 export default function Main({navigation}){
@@ -45,7 +46,7 @@ export default function Main({navigation}){
     }
 
     return(
-        <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style ={{
                 flex : 11,
             }}>
@@ -118,7 +119,7 @@ export default function Main({navigation}){
                 </View>                
             </Modal>
         
-        </SafeAreaView>
+        </ScrollView>
         
         
     )

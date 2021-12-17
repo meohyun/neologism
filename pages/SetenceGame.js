@@ -1,5 +1,5 @@
 import React, { useEffect,useState} from 'react'
-import {SafeAreaView,StyleSheet,Text,View,Modal,Pressable,RefreshControl,Alert } from 'react-native'
+import {StyleSheet,Text,View,Modal,Pressable,Alert,ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import data from '../data_sentence'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
@@ -88,6 +88,7 @@ export default function SentenceGame({navigation}){
        }
        setModalVisible(true)
        setNextPage(true)
+       setHintDisabled(true)
 
     }
 
@@ -135,18 +136,6 @@ export default function SentenceGame({navigation}){
         
     }
 
-    // 새로고침 기능
-    const wait = (timeout) => {
-        return new Promise(resolve => setTimeout(resolve, timeout));
-      }
-
-    const [refreshing, setRefreshing] = React.useState(false);
-
-    const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
-        }, []);
-
     const MoveMain = ()=> {
         setScoreModal(false)
 
@@ -169,12 +158,7 @@ export default function SentenceGame({navigation}){
     }
 
     return(
-       <SafeAreaView style={styles.container}
-       refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />}>
+       <ScrollView style={styles.container}>
            <View style={{
                flexDirection :"row",
                alignItems :"flex-end",
@@ -433,7 +417,7 @@ export default function SentenceGame({navigation}){
                 />
             } 
 
-       </SafeAreaView>
+       </ScrollView>
     )
 
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import {SafeAreaView, StyleSheet,View,Text, Modal,RefreshControl, Alert} from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { useEffect,useState } from 'react'
 import data from '../data'
@@ -94,6 +94,7 @@ export default function Question({navigation}){
        if(selectedOption==answer){
            setscore(score+1)
        }
+       setHintDisabled(true)
        setModalVisible(true)
        setNextPage(true)
 
@@ -145,18 +146,6 @@ export default function Question({navigation}){
         
     }
 
-    // 새로고침 기능
-    const wait = (timeout) => {
-        return new Promise(resolve => setTimeout(resolve, timeout));
-      }
-
-    const [refreshing, setRefreshing] = React.useState(false);
-
-    const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
-        }, []);
-
 
     const MoveMain = ()=> {
         setScoreModal(false)
@@ -179,12 +168,7 @@ export default function Question({navigation}){
     }
 
     return(
-        <SafeAreaView style={styles.container}
-        refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />}>
+        <ScrollView style={styles.container}>
             <StatusBar barstyle="light-content" backgroundColor="#fff"/>
             <View style={{
                 flexDirection :"row",
@@ -414,7 +398,7 @@ export default function Question({navigation}){
                 style={styles.banner}
                 />
             } 
-        </SafeAreaView>
+        </ScrollView>
     )
 }
 
