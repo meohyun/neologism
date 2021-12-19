@@ -3,7 +3,6 @@ import {Modal,View,Image,Text ,StyleSheet, TouchableOpacity, Platform,Alert} fro
 import data from '../data'
 import {AdMobBanner} from 'expo-ads-admob'
 import { StatusBar } from "expo-status-bar"
-import { SafeAreaView } from "react-native-safe-area-context"
 import { ScrollView } from "react-native-gesture-handler"
 
 
