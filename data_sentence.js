@@ -609,4 +609,13 @@ export default data =[
         "hint"  : "깨끗한 공기"
     
     },
+    {
+        "idx" : 68,
+        "question" : "_____를 남발하는 것 보다 간단하게 말하는 것이 좋다.",
+        "answer" : "TMI",
+        "options" : ["TMI","핑프","어그로","톡디"],
+        "desc" : "Too Much Information의 약자로 어떤 주제에 대해 쓸떼없이 많은 정보를 말할때 사용하는 말이다.",
+        "hint"  : "Too Much"
+    
+    },
 ]

@@ -325,7 +325,7 @@ export default data = [
             "desc_title" : "킹받네",
             "desc" : "열받네의 앞글자를 킹으로 바꾸어 화남을 강조한 말이다.",
             "example" : "아 레알 킹받네",
-            "hint" : "감탄사로 많이쓰임"
+            "hint" : "상대방이 도발할때"
         },
         {
             "idx" : 31,
@@ -697,6 +697,17 @@ export default data = [
             "example" : "최근 도시의 심각한 대기오염으로 공기가 깨끗한 숲으로 떠나는 에어노마드족이 늘어나고 있습니다.",
             "hint" : "노마드는 유목민을 뜻한다."
         },
+        {
+            "idx" : 68,
+            "name" : "TMI는 무슨 뜻일까요?",
+            "answer" : "알 필요 없는 정보들",
+            "options" : ["시간이 촉박함","자아가 너무 많음","알 필요 없는 정보들","(눈물) 이모티콘"],
+            "desc_title" : "TMI",
+            "desc" : "Too Much Information의 약자로 어떤 주제에 대해 쓸떼없이 많은 정보를 말할때 사용하는 말이다.",
+            "example" : "그건 좀 TMI인거 같은데.",
+            "hint" : "Too Much"
+        },
+        
         
         
         
