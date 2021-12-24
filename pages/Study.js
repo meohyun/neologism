@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {View,StyleSheet,Text,RefreshControl,Image} from 'react-native'
+import {View,StyleSheet,Text,RefreshControl,Image,ScrollView} from 'react-native'
 import { AdMobBanner } from 'expo-ads-admob'
 import data from '../data'
 import { FlatList, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
@@ -72,6 +72,21 @@ export default function Study({navigation,content}){
         setDataState(masterData)
     }
 
+    const category = (cate) => {
+
+        let neologism_data = data;
+
+        if(cate == "전체보기"){
+            setDataState(neologism_data)
+        }
+        
+        else{
+            setDataState(neologism_data.filter((d)=>{
+            return d.category == cate
+        }))
+        }
+        }
+
     return(
         <SafeAreaView style={styles.container}
 
@@ -109,6 +124,14 @@ export default function Study({navigation,content}){
                     </TouchableOpacity>
                 </View>
 
+                <ScrollView style={styles.category} horizontal indicatorStyle={"white"}>
+                    <TouchableOpacity style={styles.category_box} onPress={()=>{category('전체보기')}}><Text style={styles.category_text}>전체보기</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.category_box1} onPress={()=>{category('경제')}}><Text style={styles.category_text}>경제</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.category_box2} onPress={()=>{category('연애')}}><Text style={styles.category_text}>연애</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.category_box3} onPress={()=>{category('인방')}}><Text style={styles.category_text}>인방</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.category_box4} onPress={()=>{category('생활')}}><Text style={styles.category_text}>생활</Text></TouchableOpacity>
+                </ScrollView>
+
                 <View style={styles.list}>
                     <FlatList
                     data={Datastate}
@@ -128,7 +151,7 @@ export default function Study({navigation,content}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/2598378688"
+                adUnitID ="ca-app-pub-8186113865555128/3384862651"
                 style={styles.banner}/>
 
                 
@@ -137,7 +160,7 @@ export default function Study({navigation,content}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/4354802154"
+                adUnitID ="ca-app-pub-8186113865555128/3384862651"
                 style={styles.banner}
                 />
                 } 
@@ -179,12 +202,11 @@ const styles = StyleSheet.create({
         borderColor: "#fff",
         backgroundColor :"#fff"
     },
-    
+
 
     list :{
-        flex :6,
+        flex :5,
         backgroundColor :"#000",
-        marginVertical : 20,
     },
     list_button :{
         width : "100%",
@@ -208,6 +230,77 @@ const styles = StyleSheet.create({
         borderWidth : 1,
         borderColor : "#fff",
 
+    },
+    category :{
+        flex : 1,
+        flexDirection :"row",
+        
+    },
+    category_box : {
+        width : 100,
+        height: 50,
+        backgroundColor :"gray",
+        borderWidth :1,
+        borderRadius :10,
+        justifyContent : "center",
+        alignItems : "center",
+        marginLeft : 15,
+        marginTop : 15
+        
+    },
+    category_box1 : {
+        width : 100,
+        height: 50,
+        backgroundColor :"red",
+        borderWidth :1,
+        borderRadius :10,
+        justifyContent : "center",
+        alignItems : "center",
+        marginLeft : 15,
+        marginTop : 15
+        
+    },
+    category_box2 : {
+        width : 100,
+        height: 50,
+        backgroundColor :"green",
+        borderWidth :1,
+        borderRadius :10,
+        justifyContent : "center",
+        alignItems : "center",
+        marginLeft : 15,
+        marginTop : 15
+        
+    },
+    category_box3 : {
+        width : 100,
+        height: 50,
+        backgroundColor :"blue",
+        borderWidth :1,
+        borderRadius :10,
+        justifyContent : "center",
+        alignItems : "center",
+        marginLeft : 15,
+        marginTop : 15
+        
+    },
+    category_box4 : {
+        width : 100,
+        height: 50,
+        backgroundColor :"purple",
+        borderWidth :1,
+        borderRadius :10,
+        justifyContent : "center",
+        alignItems : "center",
+        marginLeft : 15,
+        marginTop : 15
+        
+    },
+    category_text :{
+        fontSize : 20,
+        textAlign : "center",
+        color : "white",
+        fontWeight :"bold"
     }
 
 })
