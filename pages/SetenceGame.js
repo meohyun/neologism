@@ -423,7 +423,7 @@ export default function SentenceGame({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/2598378688"
+                adUnitID ="ca-app-pub-8186113865555128/3384862651"
                 style={styles.banner}/>
 
                 
@@ -432,7 +432,7 @@ export default function SentenceGame({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/4354802154"
+                adUnitID ="ca-app-pub-8186113865555128/3384862651"
                 style={styles.banner}
                 />
             } 
