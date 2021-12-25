@@ -2,7 +2,7 @@
   "expo": {
     "name": "신조어 퀴즈",
     "slug": "neologism",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -29,7 +29,7 @@
       },
       "android": {
           "package": "com.neologism.meohyun",
-          "versionCode": 5,
+          "versionCode": 6,
           "config": {
             "googleMobileAdsAppId": "ca-app-pub-8186113865555128~2626298846"
       }
