@@ -6,7 +6,7 @@ import { useEffect,useState } from 'react'
 import data from '../data'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
 import { StatusBar } from 'expo-status-bar'
-import { AdMobBanner } from 'expo-ads-admob'
+import { AdMobBanner,AdMobInterstitial } from 'expo-ads-admob'
 
 
 export default function Question({navigation}){
@@ -64,6 +64,25 @@ export default function Question({navigation}){
                 
             }
         })
+
+        // 전면광고 설정
+
+        Platform.OS === 'ios' ? AdMobInterstitial.setAdUnitID('ca-app-pub-8186113865555128/2437955959'): AdMobInterstitial.setAdUnitID('ca-app-pub-8186113865555128/7549017101')
+        
+        AdMobInterstitial.addEventListener("interstitialDidLoad", () =>
+        console.log("interstitialDidLoad")
+        );
+        AdMobInterstitial.addEventListener("interstitialDidFailToLoad", () =>
+        console.log("interstitialDidFailToLoad")
+        );
+        AdMobInterstitial.addEventListener("interstitialDidOpen", () =>
+        console.log("interstitialDidOpen")
+        );
+        AdMobInterstitial.addEventListener("interstitialDidClose", () => 
+          //광고가 끝나면 다음 코드 줄이 실행!
+          console.log("interstitialDidClose")
+        );
+        
 
         setHintNum(3)
         setHintDisabled(false)
@@ -130,7 +149,15 @@ export default function Question({navigation}){
     }
     
     // 다시 시작
-    const restart = () => {
+    const restart = async() => {
+
+        try{
+            await AdMobInterstitial.requestAdAsync({servePersonalizedAds:true});
+            await AdMobInterstitial.showAdAsync();
+        }catch (error){
+            console.log(error)
+        }
+
         const random = Math.floor(Math.random()* allquestion.length)
         setScoreModal(false)
 
@@ -413,7 +440,7 @@ export default function Question({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="ca-app-pub-8186113865555128/2598378688"
                 style={styles.banner}/>
 
                 
@@ -422,7 +449,8 @@ export default function Question({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="
+                ca-app-pub-8186113865555128/2217455911"
                 style={styles.banner}
                 />
             } 

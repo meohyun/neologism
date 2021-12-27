@@ -3,7 +3,7 @@ import {StyleSheet,Text,View,Modal,Pressable,Alert,ScrollView,Image,Share,Linkin
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import data from '../data_sentence'
 import {MaterialCommunityIcons} from "@expo/vector-icons"
-import { AdMobBanner } from 'expo-ads-admob'
+import { AdMobBanner ,AdMobInterstitial} from 'expo-ads-admob'
 
 
 
@@ -58,6 +58,24 @@ export default function SentenceGame({navigation}){
                 height :100
             }
         })
+
+        // 전면광고 설정
+
+        Platform.OS === 'ios' ? AdMobInterstitial.setAdUnitID('ca-app-pub-8186113865555128/2437955959'): AdMobInterstitial.setAdUnitID('ca-app-pub-8186113865555128/7549017101')
+        
+        AdMobInterstitial.addEventListener("interstitialDidLoad", () =>
+        console.log("interstitialDidLoad")
+        );
+        AdMobInterstitial.addEventListener("interstitialDidFailToLoad", () =>
+        console.log("interstitialDidFailToLoad")
+        );
+        AdMobInterstitial.addEventListener("interstitialDidOpen", () =>
+        console.log("interstitialDidOpen")
+        );
+        AdMobInterstitial.addEventListener("interstitialDidClose", () => 
+          //광고가 끝나면 다음 코드 줄이 실행!
+          console.log("interstitialDidClose")
+        );
 
         setHintNum(3)
         setHintDisabled(false)
@@ -119,7 +137,16 @@ export default function SentenceGame({navigation}){
         }
     }
 
-    const restart = () => {
+    const restart = async() => {
+
+        try{
+            await AdMobInterstitial.requestAdAsync({servePersonalizedAds:true});
+            await AdMobInterstitial.showAdAsync();
+        }catch (error){
+            console.log(error)
+        }
+
+        
         const random = Math.floor(Math.random()* datas.length)
         setScoreModal(false)
 
@@ -423,7 +450,7 @@ export default function SentenceGame({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="ca-app-pub-8186113865555128/2598378688"
                 style={styles.banner}/>
 
                 
@@ -432,7 +459,8 @@ export default function SentenceGame({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="
+                ca-app-pub-8186113865555128/2217455911"
                 style={styles.banner}
                 />
             } 

@@ -151,7 +151,7 @@ export default function Study({navigation,content}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="ca-app-pub-8186113865555128/2598378688"
                 style={styles.banner}/>
 
                 
@@ -160,7 +160,8 @@ export default function Study({navigation,content}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="ca-app-pub-8186113865555128/3384862651"
+                adUnitID ="
+                ca-app-pub-8186113865555128/2217455911"
                 style={styles.banner}
                 />
                 } 
