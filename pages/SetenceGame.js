@@ -192,9 +192,9 @@ export default function SentenceGame({navigation}){
     }
 
     // 링크달기 
-    const link = () => {
-        Linking.openURL("https://play.google.com/store/apps/details?id=com.neologism.meohyun")
-    }
+    // const link = () => {
+    //     Linking.openURL("https://play.google.com/store/apps/details?id=com.neologism.meohyun")
+    // }
 
     return(
        <ScrollView style={styles.container}>

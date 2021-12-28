@@ -129,7 +129,7 @@ export default function Question({navigation}){
         else{
             const random = Math.floor(Math.random()* allquestion.length)
            
-            setCurrentIdx(random)
+            setCurrentIdx(random+1)
             setRandomIdx(RandomIdx+1)
             setOptionSelected(null)
             setcorrectOption(null)
@@ -206,9 +206,9 @@ export default function Question({navigation}){
     }
 
     // 링크달기 
-    const link = () => {
-        Linking.openURL("https://play.google.com/store/apps/details?id=com.neologism.meohyun")
-    }
+    // const link = () => {
+    //     Linking.openURL("https://play.google.com/store/apps/details?id=com.neologism.meohyun")
+    // }
 
     return(
         <ScrollView style={styles.container}>
@@ -449,8 +449,7 @@ export default function Question({navigation}){
                 <AdMobBanner
                 bannerSize ="fullBanner"
                 servePersonalizedAds ={true}
-                adUnitID ="
-                ca-app-pub-8186113865555128/2217455911"
+                adUnitID ="ca-app-pub-8186113865555128/2217455911"
                 style={styles.banner}
                 />
             } 

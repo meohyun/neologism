@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text,StyleSheet,SafeAreaView,View} from 'react-native'
+import {Text,StyleSheet,SafeAreaView} from 'react-native'
 import { useEffect } from 'react'
 
 export default function Intro({navigation}){
