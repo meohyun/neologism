@@ -9,14 +9,24 @@ import { StatusBar } from 'expo-status-bar'
 import { AdMobBanner,AdMobInterstitial } from 'expo-ads-admob'
 
 
-export default function Question({navigation}){
 
+export default function Question({navigation}){
 
     const allquestion = data;
 
+    // 같은 문제 반복없이 랜덤으로 
+
+    const list2 = []
+
+    for(let i=0;i<15;i++){
+        const random2 = Math.floor(Math.random()* allquestion.length)
+        list2.push(random2)
+    }
+    
+    const [NewList,setNewList] = useState([...new Set(list2)])
+
     // 현재 페이지
-    const random = Math.floor(Math.random()* allquestion.length)
-    const [CurrentIdx,setCurrentIdx] = useState(random)
+    const [CurrentIdx,setCurrentIdx] = useState(NewList[0])
     // 점수
     const [score,setscore] = useState(0)
 
@@ -122,14 +132,14 @@ export default function Question({navigation}){
     // 다음 문제 내기
     const handleNext = () => {
 
+
         // 문제는 10개까지만 렌더링
         if (RandomIdx == 9){
             setScoreModal(true)
         }
         else{
-            const random = Math.floor(Math.random()* allquestion.length)
-           
-            setCurrentIdx(random+1)
+
+            setCurrentIdx(NewList[RandomIdx+1])
             setRandomIdx(RandomIdx+1)
             setOptionSelected(null)
             setcorrectOption(null)
@@ -158,11 +168,12 @@ export default function Question({navigation}){
             console.log(error)
         }
 
-        const random = Math.floor(Math.random()* allquestion.length)
         setScoreModal(false)
 
+        setNewList([...new Set(list2)])
+
         setRandomIdx(0)
-        setCurrentIdx(random)
+        setCurrentIdx(NewList[RandomIdx+1])
         setscore(0)
 
         setHintNum(3)
