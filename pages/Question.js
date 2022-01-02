@@ -65,13 +65,12 @@ export default function Question({navigation}){
 
         // console.log(allquestion[CurrentIdx]?.answer)
         navigation.setOptions({
-            title : "단어 맞추기",
+            title : "",
             headerStyle :{
                 backgroundColor : "#000",
                 shadowColor : "#000",
                 borderBottomColor :"#000",
-                height :100
-                
+                height : 0              
             }
         })
 
@@ -337,13 +336,13 @@ export default function Question({navigation}){
 
                         }}>
                             <Text style={{
-                                fontSize : 20,
+                                fontSize : 25,
                                 color : score > 4 ? "#00FF00" : "#FF0000"
                             }}>{score}</Text>
                             <Text style={{
-                                fontSize : 20,
+                                fontSize : 25,
                                 color : "#000"
-                            }}>/ 10</Text>
+                            }}> / 10</Text>
                         </View>
                         <View style={{
                             flexDirection :"row"
@@ -475,7 +474,8 @@ const styles = StyleSheet.create({
         flex : 1,
         flexBasis: 420,
         flexShrink : 1,
-        backgroundColor:"#000"
+        backgroundColor:"#000",
+        marginTop : 35,
     },
     right_number : {
         color :"#fff",

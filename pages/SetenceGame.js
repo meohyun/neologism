@@ -60,12 +60,12 @@ export default function SentenceGame({navigation}){
 
     useEffect(()=>{
         navigation.setOptions({
-            title : "문장 만들기",
+            title : "",
             headerStyle:{
                 backgroundColor : "#000",
                 shadowColor : "#000",
                 borderBottomColor :"#000",
-                height :100
+                height :0
             }
         })
 
@@ -375,11 +375,11 @@ export default function SentenceGame({navigation}){
 
                         }}>
                             <Text style={{
-                                fontSize : 20,
+                                fontSize : 25,
                                 color : score > 4 ? "#00FF00" : "#FF0000"
                             }}>{score}</Text>
                             <Text style={{
-                                fontSize : 20,
+                                fontSize : 25,
                                 color : "#000"
                             }}>/ 10</Text>
                         </View>
@@ -485,7 +485,8 @@ const styles = StyleSheet.create({
         flex : 1,
         flexBasis: 420,
         flexShrink : 1,
-        backgroundColor : "#000"
+        backgroundColor : "#000",
+        marginTop : 35,
     },
     question : {
         justifyContent : "center",
@@ -494,7 +495,7 @@ const styles = StyleSheet.create({
         borderColor : "#fff",
         borderRadius : 15,
         width : 400,
-        height : 250,
+        height : 300,
         marginTop : 5,
         marginBottom :10,
         padding :10,

@@ -16,7 +16,8 @@ export default function Main({navigation}){
             headerStyle:{
                 backgroundColor : "#000",
                 shadowColor : "#000",
-                borderBottomColor :"#000"
+                borderBottomColor :"#000",
+                height : 30,
             }
         })
     },[])
@@ -43,15 +44,13 @@ export default function Main({navigation}){
         setmodal(false)
     }
 
+
     return(
         <ScrollView style={styles.container}>
             <View style ={{
-                flex : 11,
+                flex : 5,
             }}>
             <StatusBar barstyle="light-content" backgroundColor="#fff"/>
-            <Image style={{
-                height : 80,
-            }}source={{uri:Uri}}/>
             <Text style={styles.title}>신조어 퀴즈</Text>
             <TouchableOpacity style={styles.button01}><Text style={styles.buttonText01} onPress={game_type}>시작하기</Text></TouchableOpacity>
             <TouchableOpacity style={styles.button01} onPress={()=>{navigation.navigate('Study')}}><Text style={styles.buttonText01}>신조어 사전</Text></TouchableOpacity>
@@ -114,7 +113,6 @@ export default function Main({navigation}){
                             <TouchableOpacity style={styles.modalbutton} onPress={wordgame}><Text style={styles.modaltext}>단어 맞추기</Text></TouchableOpacity>
                             <TouchableOpacity style={styles.modalbutton} onPress={sentencegame}><Text style= {styles.modaltext}>문장 만들기</Text></TouchableOpacity>
                         </View>
-                        
                     </View>
                 </View>                
             </Modal>
@@ -130,11 +128,11 @@ const styles = StyleSheet.create({
         flex : 1,
         flexBasis: 420,
         flexShrink : 1,
-        backgroundColor : "#000"
+        backgroundColor : "#000",
     },
     title:{
-        marginLeft : 10,
-        marginTop : 80,
+        borderWidth : 2,
+        marginTop : 60,
         color: "#fff",
         fontSize : 45,
         textAlign : "center"
@@ -145,7 +143,7 @@ const styles = StyleSheet.create({
         alignContent : "center",
         alignSelf : "center",
         backgroundColor : "#017CFF",
-        borderWidth :1,
+        borderWidth :2,
         borderColor : "#fff",
         marginTop : 60,
         height : 70,
@@ -164,7 +162,7 @@ const styles = StyleSheet.create({
         width : "100%",
         borderWidth : 1,
         borderColor : "#fff",
-        marginTop : 70
+        marginTop : 60
     },
     modalbox : {
         justifyContent : "center",
