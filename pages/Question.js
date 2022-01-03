@@ -65,12 +65,12 @@ export default function Question({navigation}){
 
         // console.log(allquestion[CurrentIdx]?.answer)
         navigation.setOptions({
-            title : "",
+            title : "단어 맞추기",
             headerStyle :{
                 backgroundColor : "#000",
                 shadowColor : "#000",
                 borderBottomColor :"#000",
-                height : 0              
+                height : 80              
             }
         })
 
@@ -475,7 +475,7 @@ const styles = StyleSheet.create({
         flexBasis: 420,
         flexShrink : 1,
         backgroundColor:"#000",
-        marginTop : 35,
+
     },
     right_number : {
         color :"#fff",
@@ -499,7 +499,7 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         color: "#fff",
         fontSize : 30,
-        marginTop : 20,
+        marginTop : 10,
         marginBottom :50,
         fontWeight :"700",
         padding : 15,

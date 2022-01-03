@@ -60,12 +60,12 @@ export default function SentenceGame({navigation}){
 
     useEffect(()=>{
         navigation.setOptions({
-            title : "",
+            title : "문장 만들기",
             headerStyle:{
                 backgroundColor : "#000",
                 shadowColor : "#000",
                 borderBottomColor :"#000",
-                height :0
+                height :80
             }
         })
 
@@ -486,7 +486,6 @@ const styles = StyleSheet.create({
         flexBasis: 420,
         flexShrink : 1,
         backgroundColor : "#000",
-        marginTop : 35,
     },
     question : {
         justifyContent : "center",

@@ -17,7 +17,7 @@ export default function Main({navigation}){
                 backgroundColor : "#000",
                 shadowColor : "#000",
                 borderBottomColor :"#000",
-                height : 30,
+                height : 80,
             }
         })
     },[])
@@ -116,7 +116,6 @@ export default function Main({navigation}){
                     </View>
                 </View>                
             </Modal>
-        
         </ScrollView>
         
         
