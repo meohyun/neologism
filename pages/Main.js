@@ -17,7 +17,7 @@ export default function Main({navigation}){
                 backgroundColor : "#000",
                 shadowColor : "#000",
                 borderBottomColor :"#000",
-                height : 80,
+                height : 100,
             }
         })
     },[])
@@ -130,8 +130,7 @@ const styles = StyleSheet.create({
         backgroundColor : "#000",
     },
     title:{
-        borderWidth : 2,
-        marginTop : 60,
+        marginTop : 130,
         color: "#fff",
         fontSize : 45,
         textAlign : "center"
