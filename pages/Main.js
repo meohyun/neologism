@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         backgroundColor : "#000",
     },
     title:{
-        marginTop : 130,
+        marginTop : 20,
         color: "#fff",
         fontSize : 45,
         textAlign : "center"
